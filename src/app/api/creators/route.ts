@@ -82,12 +82,14 @@ export async function GET(request: NextRequest) {
     };
     const sortConfig = sortMap[sort] || sortMap.followers;
     if (sortConfig.table) {
-      query = query.order(sortConfig.column, { referencedTable: sortConfig.table, ascending: false });
+      // PostgREST cannot correctly sort parent rows by referenced-table columns.
+      // Fetch a larger window and sort + paginate client-side.
+      const fetchLimit = Math.min(offset + limit + 500, 2000);
+      query = query.range(0, fetchLimit - 1);
     } else {
       query = query.order(sortConfig.column, { ascending: false });
+      query = query.range(offset, offset + limit - 1);
     }
-
-    query = query.range(offset, offset + limit - 1);
 
     const { data, error, count } = await query;
 
@@ -165,8 +167,13 @@ export async function GET(request: NextRequest) {
       creators.sort(clientSortFn[sort]);
     }
 
+    // If we fetched a larger window for client-side sort, paginate now
+    const paginatedCreators = sortConfig.table
+      ? creators.slice(offset, offset + limit)
+      : creators;
+
     return NextResponse.json({
-      creators,
+      creators: paginatedCreators,
       total: count ?? 0,
       limit,
       offset,
