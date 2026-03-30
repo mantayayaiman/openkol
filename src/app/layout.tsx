@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { NavBar } from "@/components/NavBar";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { FeedbackWidget } from "@/components/FeedbackWidget";
 
 export const metadata: Metadata = {
   title: "KolBuff — Creator Intelligence Platform",
@@ -27,6 +28,7 @@ export default function RootLayout({
             {children}
           </ErrorBoundary>
         </main>
+        <FeedbackWidget />
       </body>
     </html>
   );

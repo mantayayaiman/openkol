@@ -229,21 +229,34 @@ export default function CreatorPage({ params }: { params: Promise<{ id: string }
           <div className="sm:ml-auto flex flex-col items-center gap-3 shrink-0">
             <ScoreBadge score={heatScore} size="lg" />
             {primaryPlatform && (
-              <ShortlistButton
-                creator={{
-                  id: creator.id,
-                  name: creator.name,
-                  username: primaryPlatform.username,
-                  platform: primaryPlatform.platform,
-                  profile_image: creator.profile_image,
-                  followers: primaryPlatform.followers,
-                  engagement_rate: primaryPlatform.engagement_rate,
-                  heat_score: heatScore,
-                  country: creator.country,
-                  addedAt: '',
-                }}
-                size="md"
-              />
+              <>
+                <ShortlistButton
+                  creator={{
+                    id: creator.id,
+                    name: creator.name,
+                    username: primaryPlatform.username,
+                    platform: primaryPlatform.platform,
+                    profile_image: creator.profile_image,
+                    followers: primaryPlatform.followers,
+                    engagement_rate: primaryPlatform.engagement_rate,
+                    heat_score: heatScore,
+                    country: creator.country,
+                    addedAt: '',
+                  }}
+                  size="md"
+                />
+                <button
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent('open-feedback', {
+                      detail: { type: 'wrong_data', url: window.location.href, creatorName: creator.name }
+                    }));
+                  }}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-border transition-colors"
+                >
+                  <AlertTriangle className="h-3.5 w-3.5" />
+                  Report Issue
+                </button>
+              </>
             )}
           </div>
         </div>
