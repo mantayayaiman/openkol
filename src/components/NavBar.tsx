@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Trophy, Search, LayoutGrid, ScanLine, Heart, Rocket } from 'lucide-react';
+import { Menu, X, Trophy, Search, LayoutGrid, ScanLine, Heart, Rocket, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/cn';
 
 const NAV_ITEMS = [
@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { href: '/rankings', label: 'Rankings', icon: Trophy },
   { href: '/lookup', label: 'Lookup', icon: ScanLine },
   { href: '/shortlist', label: 'Shortlist', icon: Heart },
+  { href: '/blog', label: 'Blog', icon: BookOpen },
   { href: '/changelog', label: 'Changelog', icon: Rocket },
 ];
 

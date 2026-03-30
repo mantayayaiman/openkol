@@ -1,0 +1,36 @@
+============================================================
+🔄 SYNC TO TURSO (INCREMENTAL)
+   2026-03-30T09:22:17.945007+00:00
+============================================================
+  ✅ Tables ensured
+  Creators: syncing 647 rows...
+  ❌ Error: The read operation timed out
+    147/647 creators pushed
+  Presences: syncing 660 rows...
+  ❌ Error: The read operation timed out
+  ❌ Turso error: {'message': 'SQLite error: FOREIGN KEY constraint failed', 'code': 'SQLITE_CONSTRAINT'}
+  ❌ Turso error: {'message': 'SQLite error: FOREIGN KEY constraint failed', 'code': 'SQLITE_CONSTRAINT'}
+    160/660 presences pushed
+  Content samples: syncing 66899 rows...
+    500/66899 samples pushed
+    1000/66899 samples pushed
+    1500/66899 samples pushed
+    2000/66899 samples pushed
+    2500/66899 samples pushed
+    3000/66899 samples pushed
+    3500/66899 samples pushed
+    4000/66899 samples pushed
+  ❌ Error: The read operation timed out
+    4500/66899 samples pushed
+    5000/66899 samples pushed
+    5500/66899 samples pushed
+    6000/66899 samples pushed
+    6500/66899 samples pushed
+  ❌ Error: The read operation timed out
+    7000/66899 samples pushed
+    7500/66899 samples pushed
+    8000/66899 samples pushed
+  ❌ Error: The read operation timed out
+    8500/66899 samples pushed
+    9000/66899 samples pushed
+    9500/66899 samples pushed

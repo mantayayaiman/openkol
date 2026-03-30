@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-03-30T08:03:08.494054+00:00",
-  "elapsed_seconds": 217.1,
-  "passed": 27,
-  "failed": 14,
+  "timestamp": "2026-03-30T09:24:57.442640+00:00",
+  "elapsed_seconds": 27.1,
+  "passed": 45,
+  "failed": 0,
   "warnings": 0,
-  "total": 41,
+  "total": 45,
   "tests": [
     {
       "name": "Stats API",
@@ -13,18 +13,18 @@
     },
     {
       "name": "Creators API (MY)",
-      "status": "FAIL",
-      "detail": "The read operation timed out"
+      "status": "PASS",
+      "detail": ""
     },
     {
       "name": "Creators API (ID)",
-      "status": "FAIL",
-      "detail": "The read operation timed out"
+      "status": "PASS",
+      "detail": ""
     },
     {
       "name": "Suggest API",
-      "status": "FAIL",
-      "detail": "The read operation timed out"
+      "status": "PASS",
+      "detail": ""
     },
     {
       "name": "Creator Detail API",
@@ -32,12 +32,12 @@
       "detail": ""
     },
     {
-      "name": "Creator count: 30,440",
+      "name": "Creator count: 32,099",
       "status": "PASS",
       "detail": ""
     },
     {
-      "name": "Country count: 36",
+      "name": "Country count: 13",
       "status": "PASS",
       "detail": ""
     },
@@ -92,14 +92,19 @@
       "detail": ""
     },
     {
-      "name": "suggest?q=khairul",
-      "status": "FAIL",
-      "detail": "The read operation timed out"
+      "name": "suggest?q=khairul: 8 results",
+      "status": "PASS",
+      "detail": ""
     },
     {
-      "name": "suggest?q=soloz",
-      "status": "FAIL",
-      "detail": "The read operation timed out"
+      "name": "suggest?q=khairul: found Khairulaming",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "suggest?q=soloz: 2 results",
+      "status": "PASS",
+      "detail": ""
     },
     {
       "name": "suggest: rejects single-char queries",
@@ -107,34 +112,49 @@
       "detail": ""
     },
     {
-      "name": "country=MY",
-      "status": "FAIL",
-      "detail": "The read operation timed out"
+      "name": "country=MY: 7944 total, 5 returned",
+      "status": "PASS",
+      "detail": ""
     },
     {
-      "name": "country=ID",
-      "status": "FAIL",
-      "detail": "The read operation timed out"
+      "name": "country=ID: 1956 total, 5 returned",
+      "status": "PASS",
+      "detail": ""
     },
     {
-      "name": "country=SG",
-      "status": "FAIL",
-      "detail": "The read operation timed out"
+      "name": "country=SG: 431 total, 5 returned",
+      "status": "PASS",
+      "detail": ""
     },
     {
-      "name": "sort=followers",
-      "status": "FAIL",
-      "detail": "The read operation timed out"
+      "name": "sort=followers: correctly ordered DESC",
+      "status": "PASS",
+      "detail": ""
     },
     {
-      "name": "tier=mega",
-      "status": "FAIL",
-      "detail": "The read operation timed out"
+      "name": "No negative total_likes",
+      "status": "PASS",
+      "detail": ""
     },
     {
-      "name": "Data integrity check",
-      "status": "FAIL",
-      "detail": "The read operation timed out"
+      "name": "No negative followers",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "No negative engagement_rate",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "No engagement_rate > 100%",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "All creators have names",
+      "status": "PASS",
+      "detail": ""
     },
     {
       "name": "Homepage (/)",
@@ -172,7 +192,7 @@
       "detail": ""
     },
     {
-      "name": "Creator count sync: local=31,285 cloud=30,440 (diff 2.7%)",
+      "name": "Creator count sync: local=32,285 cloud=32,099 (diff 0.6%)",
       "status": "PASS",
       "detail": ""
     },
@@ -182,7 +202,7 @@
       "detail": ""
     },
     {
-      "name": "Video enrichment: 4,944/11,758 TikTok creators (42%)",
+      "name": "Video enrichment: 6,822/11,841 TikTok creators (58%)",
       "status": "PASS",
       "detail": ""
     },
@@ -192,24 +212,24 @@
       "detail": ""
     },
     {
-      "name": "Stats: 2.75s",
+      "name": "Stats: 0.59s",
       "status": "PASS",
       "detail": ""
     },
     {
-      "name": "Creators list: timeout/error",
-      "status": "FAIL",
-      "detail": "The read operation timed out"
+      "name": "Creators list: 0.84s",
+      "status": "PASS",
+      "detail": ""
     },
     {
-      "name": "Suggest: timeout/error",
-      "status": "FAIL",
-      "detail": "The read operation timed out"
+      "name": "Suggest: 1.33s",
+      "status": "PASS",
+      "detail": ""
     },
     {
-      "name": "Creator detail: timeout/error",
-      "status": "FAIL",
-      "detail": "HTTP Error 500: Internal Server Error"
+      "name": "Creator detail: 0.86s",
+      "status": "PASS",
+      "detail": ""
     }
   ]
 }
