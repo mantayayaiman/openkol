@@ -152,9 +152,17 @@ export async function GET(request: NextRequest) {
       })
       .filter(Boolean);
 
-    // Sort by views client-side if needed (computed column)
-    if (sort === 'views') {
-      creators.sort((a: any, b: any) => (b.avg_views || 0) - (a.avg_views || 0));
+    // PostgREST order on referenced tables sorts the nested array, not parent rows.
+    // We must re-sort client-side for all sort modes that depend on joined data.
+    const clientSortFn: Record<string, (a: any, b: any) => number> = {
+      followers: (a, b) => (b.followers || 0) - (a.followers || 0),
+      engagement: (a, b) => (b.engagement_rate || 0) - (a.engagement_rate || 0),
+      score: (a, b) => (b.overall_score || 0) - (a.overall_score || 0),
+      heat: (a, b) => (b.heat_score || 0) - (a.heat_score || 0),
+      views: (a, b) => (b.avg_views || 0) - (a.avg_views || 0),
+    };
+    if (clientSortFn[sort]) {
+      creators.sort(clientSortFn[sort]);
     }
 
     return NextResponse.json({
