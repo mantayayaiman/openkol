@@ -1,16 +1,26 @@
 import { NextResponse } from 'next/server';
-import { getDb } from '@/lib/db';
+import { getSupabase } from '@/lib/db';
 
 export async function GET() {
-  const db = getDb();
+  try {
+    const sb = getSupabase();
 
-  const creatorCount = await db.prepare('SELECT COUNT(*) as count FROM creators').get() as { count: number } | undefined;
-  const countryCount = await db.prepare('SELECT COUNT(DISTINCT country) as count FROM creators').get() as { count: number } | undefined;
-  const platformCount = await db.prepare('SELECT COUNT(DISTINCT platform) as count FROM platform_presences').get() as { count: number } | undefined;
+    const [creators, countries, platforms] = await Promise.all([
+      sb.from('creators').select('*', { count: 'exact', head: true }),
+      sb.from('creators').select('country').limit(10000),
+      sb.from('platform_presences').select('platform').limit(10000),
+    ]);
 
-  return NextResponse.json({
-    creators: creatorCount?.count ?? 0,
-    countries: countryCount?.count ?? 0,
-    platforms: platformCount?.count ?? 0,
-  });
+    const uniqueCountries = new Set((countries.data || []).map(r => r.country));
+    const uniquePlatforms = new Set((platforms.data || []).map(r => r.platform));
+
+    return NextResponse.json({
+      creators: creators.count ?? 0,
+      countries: uniqueCountries.size,
+      platforms: uniquePlatforms.size,
+    });
+  } catch (error: unknown) {
+    console.error('Stats API error:', error);
+    return NextResponse.json({ error: String(error) }, { status: 500 });
+  }
 }

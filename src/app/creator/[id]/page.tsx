@@ -526,29 +526,48 @@ export default function CreatorPage({ params }: { params: Promise<{ id: string }
             <Video className="h-5 w-5 text-accent" />
             Recent Content
           </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border text-muted-foreground">
-                  <th className="text-left py-2 pr-4 font-medium">Date</th>
-                  <th className="text-right py-2 px-4 font-medium">Views</th>
-                  <th className="text-right py-2 px-4 font-medium">Likes</th>
-                  <th className="text-right py-2 px-4 font-medium">Comments</th>
-                  <th className="text-right py-2 pl-4 font-medium">Shares</th>
-                </tr>
-              </thead>
-              <tbody>
-                {creator.content_samples.map((sample: any) => (
-                  <tr key={sample.id} className="border-b border-border/50 hover:bg-card-hover/30">
-                    <td className="py-2.5 pr-4 text-muted-foreground">{sample.posted_at}</td>
-                    <td className="py-2.5 px-4 text-right font-mono">{formatNumber(sample.views)}</td>
-                    <td className="py-2.5 px-4 text-right font-mono">{formatNumber(sample.likes)}</td>
-                    <td className="py-2.5 px-4 text-right font-mono">{formatNumber(sample.comments)}</td>
-                    <td className="py-2.5 pl-4 text-right font-mono">{formatNumber(sample.shares)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="space-y-3">
+            {creator.content_samples.map((sample: any) => {
+              const engRate = sample.views > 0 ? ((sample.likes + sample.comments) / sample.views * 100) : 0;
+              return (
+                <a
+                  key={sample.id}
+                  href={sample.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 p-3 rounded-lg border border-border/50 hover:border-accent/30 hover:bg-card-hover/30 transition-all group"
+                >
+                  {/* Caption & date */}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium truncate group-hover:text-accent transition-colors">
+                      {sample.caption || 'TikTok video'}
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{sample.posted_at}</p>
+                  </div>
+                  {/* Stats */}
+                  <div className="flex items-center gap-3 shrink-0 text-xs font-mono text-muted-foreground">
+                    <div className="text-right">
+                      <div className="font-medium text-foreground">{formatNumber(sample.views)}</div>
+                      <div>views</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-medium text-foreground">{formatNumber(sample.likes)}</div>
+                      <div>likes</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-medium text-foreground">{formatNumber(sample.comments)}</div>
+                      <div>comments</div>
+                    </div>
+                    <div className="text-right">
+                      <div className={`font-medium ${engRate >= 10 ? 'text-green-400' : engRate >= 5 ? 'text-accent' : 'text-foreground'}`}>
+                        {engRate.toFixed(1)}%
+                      </div>
+                      <div>eng</div>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
           </div>
         </div>
       ) : null}

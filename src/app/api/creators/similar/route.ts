@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/db';
+import { getSupabase } from '@/lib/db';
 
 export async function GET(request: NextRequest) {
-  const db = getDb();
+  const sb = getSupabase();
   const { searchParams } = request.nextUrl;
-  
+
   const id = searchParams.get('id');
   const country = searchParams.get('country');
   const category = searchParams.get('category');
@@ -16,29 +16,42 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const query = `
-      SELECT DISTINCT c.id, c.name, c.country, c.categories, c.heat_score,
-             pp.platform, pp.followers, pp.username
-      FROM creators c
-      LEFT JOIN platform_presences pp ON pp.creator_id = c.id
-      WHERE c.id != ?
-        AND c.country = ?
-        AND c.categories LIKE ?
-        AND pp.followers >= ?
-        AND pp.followers <= ?
-      ORDER BY RANDOM()
-      LIMIT 6
-    `;
+    const { data, error } = await sb
+      .from('creators')
+      .select('id, name, country, categories, heat_score, platform_presences(platform, followers, username)')
+      .neq('id', id)
+      .eq('country', country)
+      .ilike('categories', `%${category}%`)
+      .limit(50);
 
-    const creators = await db.prepare(query).all(
-      id,
-      country,
-      `%${category}%`,
-      minFollowers,
-      maxFollowers
-    );
+    if (error) throw error;
 
-    return NextResponse.json({ creators });
+    // Filter by follower range and flatten, then pick random 6
+    const filtered = (data || [])
+      .map(c => {
+        const pp = (c.platform_presences as any[])?.[0];
+        if (!pp) return null;
+        if (pp.followers < minFollowers || pp.followers > maxFollowers) return null;
+        return {
+          id: c.id,
+          name: c.name,
+          country: c.country,
+          categories: c.categories,
+          heat_score: c.heat_score,
+          platform: pp.platform,
+          followers: pp.followers,
+          username: pp.username,
+        };
+      })
+      .filter(Boolean);
+
+    // Shuffle and take 6
+    for (let i = filtered.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+    }
+
+    return NextResponse.json({ creators: filtered.slice(0, 6) });
   } catch (error) {
     console.error('Error fetching similar creators:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

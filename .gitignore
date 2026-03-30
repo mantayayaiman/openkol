@@ -11,3 +11,4 @@ scraper/health.json
 scraper/__pycache__/
 *.pyc
 .DS_Store
+.vercel

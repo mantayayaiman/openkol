@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Trophy, Search, LayoutGrid, ScanLine, Heart } from 'lucide-react';
+import { Menu, X, Trophy, Search, LayoutGrid, ScanLine, Heart, Rocket } from 'lucide-react';
 import { cn } from '@/lib/cn';
 
 const NAV_ITEMS = [
@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { href: '/rankings', label: 'Rankings', icon: Trophy },
   { href: '/lookup', label: 'Lookup', icon: ScanLine },
   { href: '/shortlist', label: 'Shortlist', icon: Heart },
+  { href: '/changelog', label: 'Changelog', icon: Rocket },
 ];
 
 export function NavBar() {
@@ -23,7 +24,7 @@ export function NavBar() {
       <div className="mx-auto max-w-7xl px-4 flex items-center justify-between h-14">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-1.5 text-lg font-bold tracking-tight">
-          Open<span className="text-accent">KOL</span>
+          Kol<span className="text-accent">Buff</span>
         </Link>
 
         {/* Desktop nav */}

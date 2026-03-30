@@ -4,8 +4,8 @@ import { NavBar } from "@/components/NavBar";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 export const metadata: Metadata = {
-  title: "OpenKOL — Open Creator Intelligence",
-  description: "Discover. Audit. Trust. AI-powered creator intelligence for Southeast Asia.",
+  title: "KolBuff — Creator Intelligence Platform",
+  description: "Discover, audit, and shortlist top creators across TikTok, Instagram, and YouTube in Southeast Asia.",
 };
 
 export default function RootLayout({

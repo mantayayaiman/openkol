@@ -186,7 +186,7 @@ async def scrape_profile(page, username):
         return {
             'username': uid, 'name': u.get('nickname',''), 'bio': u.get('signature',''),
             'avatar': u.get('avatarLarger',''), 'followers': s.get('followerCount',0),
-            'following': s.get('followingCount',0), 'likes': s.get('heartCount',0),
+            'following': s.get('followingCount',0), 'likes': abs(int(s.get('heartCount',0))),
             'videos': s.get('videoCount',0), 'verified': u.get('verified',False),
             'language': u.get('language',''), 'uid': u.get('id',''),
             '_suggested': suggested,

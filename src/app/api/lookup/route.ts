@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/db';
+import { getSupabase } from '@/lib/db';
 
 function parseCreatorUrl(url: string): { platform: string; username: string } | null {
   try {
@@ -29,7 +29,7 @@ function parseCreatorUrl(url: string): { platform: string; username: string } | 
 }
 
 export async function POST(request: NextRequest) {
-  const db = getDb();
+  const sb = getSupabase();
 
   const body = await request.json();
   const { url } = body;
@@ -45,23 +45,24 @@ export async function POST(request: NextRequest) {
     }, { status: 400 });
   }
 
-  const presence = await db.prepare(`
-    SELECT pp.*, c.id as creator_id, c.name, c.bio, c.country
-    FROM platform_presences pp
-    JOIN creators c ON c.id = pp.creator_id
-    WHERE pp.platform = ? AND pp.username = ?
-  `).get(parsed.platform, parsed.username) as Record<string, unknown> | undefined;
+  const { data: presence } = await sb
+    .from('platform_presences')
+    .select('*, creators!inner(id, name, bio, country)')
+    .eq('platform', parsed.platform)
+    .eq('username', parsed.username)
+    .single();
 
   if (presence) {
+    const creator = presence.creators as any;
     return NextResponse.json({
       status: 'found',
       platform: parsed.platform,
       username: parsed.username,
       creator: {
-        id: presence.creator_id,
-        name: presence.name,
-        bio: presence.bio,
-        country: presence.country,
+        id: creator.id,
+        name: creator.name,
+        bio: creator.bio,
+        country: creator.country,
       },
     });
   }

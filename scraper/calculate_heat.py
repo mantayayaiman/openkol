@@ -81,18 +81,68 @@ def calc_reach_multiplier(followers: int) -> float:
     return clamp(0.15 + (log_f - 2.7) / (6.0 - 2.7) * 0.85, 0.15, 1.0)
 
 
+def calc_video_engagement_score(avg_likes: float, avg_views: float) -> float:
+    """Score based on actual video engagement (likes/views ratio from content_samples).
+    1% = low, 5% = decent, 10% = great, 20%+ = amazing."""
+    if avg_views <= 0 or avg_likes <= 0:
+        return 0.0
+    ratio_pct = (avg_likes / avg_views) * 100.0
+    return clamp(sigmoid_scale(ratio_pct, midpoint=5.0, steepness=2.0))
+
+
+def calc_views_to_followers_score(avg_views: float, followers: int) -> float:
+    """Score based on avg video views relative to follower count.
+    Higher ratio = more viral/discoverable content.
+    0.1 = low, 0.5 = decent, 1.0+ = great (views match followers per video)."""
+    if followers <= 0 or avg_views <= 0:
+        return 0.0
+    ratio = avg_views / followers
+    return clamp(sigmoid_scale(ratio, midpoint=0.3, steepness=2.0))
+
+
 def calculate_heat_score(row: dict) -> float:
-    """Calculate heat score for a creator's platform presence."""
+    """Calculate heat score for a creator's platform presence.
+    
+    With video samples (content_samples data):
+      - View/follower ratio     30%  (are videos reaching beyond followers?)
+      - Video engagement        25%  (likes+comments per view)  
+      - Posting frequency       20%  (how active?)
+      - Follower growth         10%  (growing audience?)
+      - Profile engagement      15%  (engagement_rate from profile)
+    
+    Without video samples: fallback to engagement_rate only.
+    """
     recent_videos = row.get("recent_videos") or 0
     recent_views = row.get("recent_views") or 0
     recent_new_followers = row.get("recent_new_followers") or 0
     followers = row.get("followers") or 0
     engagement_rate = row.get("engagement_rate") or 0.0
+    avg_views = row.get("avg_views") or row.get("avg_sample_views") or 0
+    avg_likes = row.get("avg_sample_likes") or 0
+    sample_count = row.get("sample_count") or 0
 
+    has_video_samples = sample_count > 0 and avg_views > 0
     has_recent_data = recent_videos > 0 or recent_views > 0
     reach_mult = calc_reach_multiplier(followers)
 
-    if has_recent_data:
+    if has_video_samples:
+        # Best data: actual video performance from yt-dlp
+        views_ratio = calc_views_to_followers_score(avg_views, followers)
+        video_eng = calc_video_engagement_score(avg_likes, avg_views)
+        freq = calc_frequency_score(recent_videos if recent_videos > 0 else sample_count)
+        growth = calc_growth_score(recent_new_followers, followers)
+        profile_eng = calc_engagement_score(engagement_rate)
+
+        raw_heat = (
+            views_ratio * 0.30
+            + video_eng * 0.25
+            + freq * 0.20
+            + growth * 0.10
+            + profile_eng * 0.15
+        )
+        heat = raw_heat * reach_mult
+    elif has_recent_data:
+        # Has 30-day stats but no individual video samples
         freq = calc_frequency_score(recent_videos)
         velocity = calc_velocity_score(recent_views, followers)
         engagement = calc_engagement_score(engagement_rate)
@@ -117,14 +167,26 @@ def main():
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
 
-    # Get all creators with their best platform presence
+    # Get all creators with their best platform presence + content sample stats
     rows = cur.execute("""
         SELECT c.id as creator_id,
                pp.followers, pp.engagement_rate,
                pp.recent_videos, pp.recent_views,
-               pp.recent_new_followers, pp.impressions
+               pp.recent_new_followers, pp.impressions,
+               pp.avg_views,
+               cs.sample_count, cs.avg_sample_views, cs.avg_sample_likes, cs.avg_sample_comments
         FROM creators c
         LEFT JOIN platform_presences pp ON pp.creator_id = c.id
+        LEFT JOIN (
+            SELECT presence_id,
+                   COUNT(*) as sample_count,
+                   AVG(views) as avg_sample_views,
+                   AVG(likes) as avg_sample_likes,
+                   AVG(comments) as avg_sample_comments
+            FROM content_samples
+            WHERE views > 0
+            GROUP BY presence_id
+        ) cs ON cs.presence_id = pp.id
         WHERE pp.id IS NOT NULL
         ORDER BY c.id, pp.followers DESC
     """).fetchall()

@@ -1,6 +1,6 @@
 'use client';
 
-const STORAGE_KEY = 'openkol_shortlist';
+const STORAGE_KEY = 'kolbuff_shortlist';
 
 export interface ShortlistItem {
   id: number;
@@ -69,7 +69,7 @@ export function exportShortlistCSV(): void {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `openkol-shortlist-${new Date().toISOString().split('T')[0]}.csv`;
+  a.download = `kolbuff-shortlist-${new Date().toISOString().split('T')[0]}.csv`;
   a.click();
   URL.revokeObjectURL(url);
 }

@@ -1,73 +1,93 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/db';
+import { getSupabase } from '@/lib/db';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const db = getDb();
-  const { id } = await params;
-
-  const creator = await db.prepare(`
-    SELECT *, COALESCE(heat_score, 0) as heat_score FROM creators WHERE id = ?
-  `).get(id);
-
-  if (!creator) {
-    return NextResponse.json({ error: 'Creator not found' }, { status: 404 });
-  }
-
-  const platforms = await db.prepare(`
-    SELECT *,
-      CASE 
-        WHEN avg_views > 0 THEN avg_views
-        WHEN total_videos > 0 AND total_likes > 0 
-          THEN CAST(total_likes / total_videos / 0.08 AS INTEGER)
-        ELSE 0
-      END as avg_views,
-      COALESCE(recent_videos, 0) as recent_videos,
-      COALESCE(recent_views, 0) as recent_views,
-      COALESCE(recent_new_followers, 0) as recent_new_followers,
-      COALESCE(impressions, 0) as impressions
-    FROM platform_presences WHERE creator_id = ?
-  `).all(id);
-
-  const audit = await db.prepare(`
-    SELECT * FROM audit_scores WHERE creator_id = ?
-  `).get(id);
-
-  const presenceIds = (platforms as Record<string, unknown>[]).map((p) => p.id);
-  let contentSamples: unknown[] = [];
-  if (presenceIds.length > 0) {
-    const placeholders = presenceIds.map(() => '?').join(',');
-    contentSamples = await db.prepare(`
-      SELECT * FROM content_samples WHERE presence_id IN (${placeholders}) ORDER BY posted_at DESC
-    `).all(...presenceIds);
-  }
-
-  let audience_demographics = null;
   try {
-    const demoStr = (creator as Record<string, unknown>).audience_demographics as string;
-    if (demoStr) audience_demographics = JSON.parse(demoStr);
-  } catch {}
+    const sb = getSupabase();
+    const { id } = await params;
 
-  const storedContact = (creator as Record<string, unknown>).contact_email as string || '';
-  let contact_email = storedContact || null;
-  if (!contact_email) {
-    const bio = (creator as Record<string, unknown>).bio as string || '';
-    const emailMatch = bio.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
-    if (emailMatch) contact_email = emailMatch[0];
+    const { data: creator, error: creatorErr } = await sb
+      .from('creators')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (creatorErr || !creator) {
+      return NextResponse.json({ error: 'Creator not found' }, { status: 404 });
+    }
+
+    const [platformsRes, auditRes] = await Promise.all([
+      sb.from('platform_presences').select('*').eq('creator_id', id),
+      sb.from('audit_scores').select('*').eq('creator_id', id).single(),
+    ]);
+
+    const platforms = (platformsRes.data || []).map((p: any) => ({
+      ...p,
+      avg_views: p.avg_views > 0
+        ? p.avg_views
+        : (p.total_videos > 0 && p.total_likes > 0)
+          ? Math.floor(p.total_likes / p.total_videos / 0.08)
+          : 0,
+      recent_videos: p.recent_videos ?? 0,
+      recent_views: p.recent_views ?? 0,
+      recent_new_followers: p.recent_new_followers ?? 0,
+      impressions: p.impressions ?? 0,
+    }));
+
+    // Extract top_content from the best platform presence
+    let contentSamples: unknown[] = [];
+    for (const p of platforms) {
+      const topContent = p.top_content as string;
+      if (topContent) {
+        try {
+          const items = JSON.parse(topContent);
+          contentSamples = items.map((item: any) => ({
+            url: item.u,
+            views: item.v,
+            likes: item.l,
+            comments: item.c,
+            shares: item.s,
+            posted_at: item.d,
+            caption: item.t,
+          }));
+          break;
+        } catch {}
+      }
+    }
+
+    let audience_demographics = null;
+    try {
+      if (creator.audience_demographics) audience_demographics = JSON.parse(creator.audience_demographics);
+    } catch {}
+
+    const storedContact = creator.contact_email || '';
+    let contact_email = storedContact || null;
+    if (!contact_email) {
+      const bio = creator.bio || '';
+      const emailMatch = bio.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+      if (emailMatch) contact_email = emailMatch[0];
+    }
+
+    const audit = auditRes.data;
+
+    return NextResponse.json({
+      ...creator,
+      heat_score: creator.heat_score ?? 0,
+      categories: JSON.parse(creator.categories || '[]'),
+      platforms,
+      audit: audit ? {
+        ...audit,
+        signals: JSON.parse(audit.signals_json || '{}'),
+      } : null,
+      content_samples: contentSamples,
+      audience_demographics,
+      contact_email,
+    });
+  } catch (error: unknown) {
+    console.error('Creator detail API error:', error);
+    return NextResponse.json({ error: String(error) }, { status: 500 });
   }
-
-  return NextResponse.json({
-    ...creator as Record<string, unknown>,
-    categories: JSON.parse((creator as Record<string, unknown>).categories as string || '[]'),
-    platforms,
-    audit: audit ? {
-      ...audit as Record<string, unknown>,
-      signals: JSON.parse((audit as Record<string, unknown>).signals_json as string || '{}'),
-    } : null,
-    content_samples: contentSamples,
-    audience_demographics,
-    contact_email,
-  });
 }

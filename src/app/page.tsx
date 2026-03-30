@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Search, Shield, TrendingUp, Globe, BarChart3, Users, Zap, ArrowRight, Trophy, Crown, Medal, Flame, Heart } from 'lucide-react';
+import { SearchAutocomplete } from '@/components/SearchAutocomplete';
 import { ShortlistButton } from '@/components/ShortlistButton';
 import { COUNTRIES, CATEGORIES, formatNumber, formatEngagement, getHeatColor } from '@/lib/types';
 import { cn } from '@/lib/cn';
@@ -21,7 +22,6 @@ const countryFlags: Record<string, string> = {
 };
 
 export default function Home() {
-  const [query, setQuery] = useState('');
   const router = useRouter();
   const [stats, setStats] = useState({ creators: 0, countries: 0, platforms: 4 });
   const [statsLoaded, setStatsLoaded] = useState(false);
@@ -37,7 +37,9 @@ export default function Home() {
   const [hasSearched, setHasSearched] = useState(false);
 
   useEffect(() => {
-    fetch('/api/stats').then(r => r.json()).then(d => { setStats(d); setStatsLoaded(true); }).catch(() => {});
+    fetch('/api/stats').then(r => r.json()).then(d => { 
+      if (d && d.creators !== undefined) { setStats(d); setStatsLoaded(true); }
+    }).catch(() => {});
   }, []);
 
   const fetchCreators = useCallback(async () => {
@@ -62,13 +64,6 @@ export default function Home() {
   useEffect(() => {
     if (selectedCountry) fetchCreators();
   }, [fetchCreators, selectedCountry]);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (query.trim()) {
-      router.push(`/browse?q=${encodeURIComponent(query.trim())}`);
-    }
-  };
 
   const handleCountryClick = (code: string) => {
     if (selectedCountry === code) {
@@ -127,7 +122,7 @@ export default function Home() {
         <div className="relative mx-auto max-w-7xl px-4 pt-20 pb-12 sm:pt-28 sm:pb-16 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/50 px-4 py-1.5 text-sm text-muted-foreground mb-8">
             <Zap className="h-3.5 w-3.5 text-accent" />
-            <span>Open Creator Intelligence for Southeast Asia</span>
+            <span>Creator Intelligence for Southeast Asia</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6">
@@ -437,27 +432,9 @@ export default function Home() {
       <section className="py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 text-center">
           <h2 className="text-xl sm:text-2xl font-bold mb-6">Or search for any creator</h2>
-          <form onSubmit={handleSearch} className="mx-auto max-w-2xl">
-            <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-accent via-purple-500 to-pink-500 rounded-2xl opacity-20 group-hover:opacity-30 blur transition-opacity" />
-              <div className="relative flex items-center bg-card border border-border rounded-xl overflow-hidden">
-                <Search className="ml-5 h-5 w-5 text-muted shrink-0" />
-                <input
-                  type="text"
-                  placeholder="Search creators, paste a TikTok/IG/YT URL..."
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  className="flex-1 bg-transparent px-4 py-4 text-base sm:text-lg outline-none placeholder:text-muted"
-                />
-                <button
-                  type="submit"
-                  className="m-2 rounded-lg bg-accent px-6 py-2.5 text-sm font-medium text-white hover:bg-accent-hover transition-colors shrink-0"
-                >
-                  Search
-                </button>
-              </div>
-            </div>
-          </form>
+          <div className="mx-auto max-w-2xl">
+            <SearchAutocomplete />
+          </div>
         </div>
       </section>
 
@@ -465,10 +442,10 @@ export default function Home() {
       <section className="border-y border-border bg-card/30">
         <div className="mx-auto max-w-7xl px-4 py-8 grid grid-cols-2 sm:grid-cols-4 gap-8">
           {[
-            { value: statsLoaded ? `${stats.creators.toLocaleString()}+` : '...', label: 'Creators tracked', icon: Users },
-            { value: statsLoaded ? stats.countries.toString() : '...', label: 'Countries', icon: Globe },
+            { value: statsLoaded && stats.creators ? `${stats.creators.toLocaleString()}+` : '...', label: 'Creators tracked', icon: Users },
+            { value: statsLoaded && stats.countries ? stats.countries.toString() : '...', label: 'Countries', icon: Globe },
             { value: '15', label: 'Categories', icon: BarChart3 },
-            { value: statsLoaded ? stats.platforms.toString() : '...', label: 'Platforms', icon: TrendingUp },
+            { value: statsLoaded && stats.platforms ? stats.platforms.toString() : '...', label: 'Platforms', icon: TrendingUp },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <stat.icon className="mx-auto h-5 w-5 text-accent mb-2" />
@@ -531,9 +508,9 @@ export default function Home() {
       <footer className="border-t border-border">
         <div className="mx-auto max-w-7xl px-4 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-bold">Open<span className="text-accent">KOL</span></span>
+            <span className="text-sm font-bold">Kol<span className="text-accent">Buff</span></span>
           </div>
-          <p className="text-sm text-muted">© 2025 OpenKOL. Open creator intelligence for Southeast Asia.</p>
+          <p className="text-sm text-muted">© 2025 KolBuff. Creator intelligence for Southeast Asia.</p>
         </div>
       </footer>
     </div>
