@@ -1,0 +1,13 @@
+node_modules/
+.next/
+.env*
+!.env.example
+kreator.db
+kreator.db-shm
+kreator.db-wal
+scraper/*.log
+scraper/*.jsonl
+scraper/health.json
+scraper/__pycache__/
+*.pyc
+.DS_Store

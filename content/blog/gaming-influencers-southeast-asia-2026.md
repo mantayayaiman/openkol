@@ -1,0 +1,158 @@
+---
+meta_title: "Top Gaming Influencers in Southeast Asia (2026) — The Creators Brands Need to Know"
+meta_description: "Discover the most influential gaming KOLs in SEA — from Malaysia's Mobile Legends pros to Indonesia's Free Fire streamers. Complete guide to the gaming creator ecosystem, brand opportunities, and campaign strategies."
+target_keywords:
+  - gaming influencer SEA
+  - gaming KOL malaysia indonesia
+  - gaming creator southeast asia
+  - esports influencer SEA
+  - gaming influencer marketing asia
+date: 2026-03-28
+author: OpenKOL Editorial
+category: Creator Rankings
+---
+
+# Top Gaming Influencers in Southeast Asia (2026)
+
+Southeast Asia is the fastest-growing gaming market in the world. With over 250 million gamers across the region and mobile gaming revenue projected to exceed $8 billion in 2026, the gaming creator ecosystem in SEA has become one of the most lucrative — and most overlooked — opportunities in influencer marketing.
+
+While beauty and food influencers dominate marketing conversations, gaming creators in SEA command massive audiences with fierce loyalty. The engagement rates are higher, the community bonds are stronger, and the demographic — predominantly male, 16-34, digitally native — is notoriously hard to reach through traditional advertising.
+
+Here's who you need to know.
+
+## The Malaysian Gaming Scene
+
+Malaysia's gaming creator ecosystem punches above its weight. Despite being a smaller market than Indonesia or the Philippines, Malaysian gaming creators have built some of the region's most engaged communities, particularly around Mobile Legends: Bang Bang (MLBB) and Honor of Kings.
+
+### Soloz (@solikiw)
+
+**Platform:** TikTok, YouTube, Facebook Gaming | **Followers:** 3M+ across platforms
+
+Soloz is arguably Malaysia's biggest gaming personality. Originally known as a dominant Mobile Legends player, he's evolved into a full-spectrum gaming entertainer. His content spans competitive gameplay, casual gaming, vlogs, and increasingly, lifestyle content that extends his appeal beyond hardcore gamers.
+
+**Why brands love him:** His audience crossover is rare in gaming. Soloz pulls viewers who don't even play the games he plays — they watch for his personality. This makes him viable for non-endemic brands (brands outside the gaming industry) that want to reach young Malaysian males.
+
+**Brand track record:** Multiple gaming peripheral brands, telco partnerships, and increasingly, lifestyle brands recognizing that his audience buys more than just gaming products.
+
+**Best for:** Any brand targeting Malaysian males 18-30, gaming peripherals, telcos, energy drinks, lifestyle brands wanting gaming-adjacent credibility.
+
+### KingshahX (@kingshahx)
+
+**Platform:** TikTok, YouTube, Facebook Gaming | **Followers:** 2M+ across platforms
+
+KingshahX has built a reputation as one of Malaysia's most skilled and entertaining MLBB content creators. His competitive gameplay content drives strong engagement from the hardcore gaming community, while his personality-driven content broadens his appeal.
+
+**Why he stands out:** Exceptional engagement rates — his core audience is deeply invested. Comment sections on his content are active communities, not passive viewership. This translates to higher brand recall and stronger conversion for gaming-adjacent products.
+
+**Best for:** Gaming hardware, mobile gaming accessories, esports-adjacent brands, energy drinks, tech products.
+
+### Yonny (@yonnyyy)
+
+**Platform:** TikTok, YouTube | **Followers:** 1.5M+ across platforms
+
+Yonny rounds out Malaysia's gaming creator top tier. Known for his gameplay skill and competitive content, he brings credibility that resonates with the hardcore gaming audience while maintaining entertainment value for casual viewers.
+
+**Best for:** Competitive gaming products, esports team sponsorships, gaming chairs and peripherals.
+
+### Team Vamos — The Collective Power
+
+Worth noting: Soloz, KingshahX, and Yonny compete together in the MPL Malaysia esports league as part of Team Vamos. This creates unique brand partnership opportunities — campaigns that leverage the team's collective reach and the built-in storylines of competitive esports. Team-based campaigns typically generate 2-3x the engagement of individual creator campaigns due to cross-audience exposure and competitive narratives.
+
+## The Indonesian Gaming Scene
+
+Indonesia is SEA's largest gaming market by volume. With over 100 million gamers, the creator ecosystem here is massive, diverse, and highly competitive.
+
+### Jess No Limit (@jessnolimit)
+
+**Platform:** YouTube, TikTok | **Followers:** 45M+ (YouTube)
+
+Jess No Limit is Indonesian gaming's biggest name and one of the highest-followed gaming YouTubers globally. His MLBB content dominates, but he's expanded into variety gaming and lifestyle content. His reach is so large that he's essentially a mainstream celebrity.
+
+**Why he matters:** Volume and legitimacy. A Jess No Limit partnership signals to Indonesian gamers that your brand is serious about the space. However, his size means lower engagement rates (a common trade-off with mega-influencers).
+
+**Best for:** Large-scale brand awareness campaigns, product launches needing mass reach, establishing gaming market credibility.
+
+### Windah Basudara (@windahbasudara)
+
+**Platform:** YouTube, TikTok | **Followers:** 25M+ (YouTube)
+
+Windah has emerged as one of Indonesia's most consistently engaging gaming creators. His variety content — spanning multiple games, challenges, and collaborations — keeps his audience broad while his personality keeps them loyal.
+
+**Best for:** Entertainment-forward campaigns, cross-game promotions, brands wanting sustained multi-content partnerships.
+
+### EVOS Esports Roster
+
+Indonesia's EVOS Esports organization fields some of the region's most marketable players across MLBB, Free Fire, and other competitive titles. Individual EVOS players carry personal followings of 1-5M+, and the organization's brand carries significant weight with Indonesian gaming audiences.
+
+**Best for:** Endemic brand partnerships, long-term esports sponsorships, gaming tournament activations.
+
+## The Philippines Gaming Scene
+
+### Dogie (@akositoydogie)
+
+**Platform:** Facebook Gaming, YouTube, TikTok | **Followers:** 10M+ (Facebook)
+
+Coach Dogie is the Philippines' most recognizable MLBB personality — as a team coach, commentator, and creator. His influence in Filipino gaming culture is so significant that brands use him as a gateway to the entire Philippine gaming market.
+
+**Best for:** Philippine market entry for gaming brands, MLBB-specific campaigns, tournament partnerships.
+
+### ChooxTV (@chloox)
+
+**Platform:** Facebook Gaming, YouTube | **Followers:** 15M+ (Facebook)
+
+ChooxTV has built a massive Filipino audience with entertaining gaming content that transcends specific titles. His community is one of the most active in Philippine social media.
+
+**Best for:** Mass-market campaigns targeting Filipino gamers, brands wanting entertainment-first content.
+
+## Brand Opportunities in Gaming Creator Marketing
+
+### Why Non-Endemic Brands Should Pay Attention
+
+The biggest mistake brands make with gaming influencer marketing is assuming it only works for gaming products. In reality:
+
+- **Telcos** are natural fits — gamers need fast internet and mobile data
+- **Energy drinks and snack brands** align perfectly with gaming sessions
+- **Financial services** can reach young males who are notoriously hard to target through traditional channels
+- **Fashion and streetwear** brands are finding strong overlap with gaming culture
+- **Automotive** brands targeting young male audiences are increasingly exploring gaming partnerships
+
+### Budget Expectations for SEA Gaming Creators
+
+Rough guidelines for 2026 (single video/post):
+
+| Tier | Followers | Typical Rate (USD) |
+|------|-----------|-------------------|
+| Mega | 5M+ | $5,000 - $25,000 |
+| Macro | 1M - 5M | $1,500 - $5,000 |
+| Mid | 500K - 1M | $500 - $1,500 |
+| Micro | 100K - 500K | $150 - $500 |
+
+Rates vary significantly by country (Indonesian creators typically charge less than Malaysian or Singaporean creators for equivalent reach) and by content format (live streams command premiums over pre-recorded content).
+
+### Campaign Formats That Work
+
+1. **Gameplay integration** — Product naturally appears during gaming content. Works for peripherals, drinks, snacks.
+2. **Challenge/tournament sponsorship** — Brand sponsors a competitive event between creators. Generates multi-content campaign from single activation.
+3. **Team sponsorship** — Long-term brand association with an esports team. Expensive but high-visibility.
+4. **Unboxing/review** — Traditional product showcase. Works for gaming hardware, phones, accessories.
+5. **Custom content series** — Brand-funded content series (e.g., "Soloz plays [game] for 24 hours, powered by [brand]"). Highest engagement but requires creative freedom.
+
+## Vetting Gaming Creators: What to Watch For
+
+Gaming creators are generally less susceptible to follower fraud than lifestyle or beauty creators — their audiences are more engaged and harder to fake. But it's not zero-risk.
+
+**Key checks:**
+
+- **Live stream concurrent viewers** — This is the hardest metric to fake. Compare claimed reach to actual live viewership.
+- **Community engagement depth** — Are fans creating fan art, memes, and discussion? This indicates genuine community, not purchased audience.
+- **Tournament performance** — For esports personalities, competitive results add credibility.
+- **Cross-platform consistency** — Real gaming influencers have presence across YouTube, TikTok, and streaming platforms. Suspicious if only one platform shows large numbers.
+- **Audience quality verification** — Tools like OpenKOL's Authenticity Score analyze follower composition and engagement patterns to flag artificially inflated accounts, even in gaming verticals where fraud is less common.
+
+## The Takeaway
+
+Gaming influencer marketing in Southeast Asia is no longer niche — it's one of the most effective channels for reaching young, digitally native consumers across the region. The creators listed here represent the top tier, but the ecosystem runs deep. Micro and mid-tier gaming creators often deliver better ROI than mega-influencers due to higher engagement rates and more passionate communities.
+
+The brands winning in this space are the ones that respect gaming culture, give creators creative freedom, and invest in long-term relationships rather than one-off posts.
+
+*Exploring gaming creator partnerships in SEA? Audit any creator's audience quality and Authenticity Score at [openkol.com](https://openkol.com) before committing to your campaign.*

@@ -1,0 +1,67 @@
+[
+  {
+    "name": "Homepage",
+    "passed": false,
+    "details": "Title: OpenKOL \u2014 Open Creator Intelligence, Search: True, Leaderboards: 10, Nav: 5",
+    "screenshot": "/Users/aiman/.openclaw/workspace/projects/kreator/qa/screenshots/01_homepage.png",
+    "bugs": [
+      "Missing nav link: OpenKOL"
+    ]
+  },
+  {
+    "name": "Browse Page",
+    "passed": true,
+    "details": "Cards: 34, Search: True, Filters: True",
+    "screenshot": "/Users/aiman/.openclaw/workspace/projects/kreator/qa/screenshots/02_browse.png",
+    "bugs": []
+  },
+  {
+    "name": "Rankings Page",
+    "passed": true,
+    "details": "Table: True, Rows: 34, Filters: 4",
+    "screenshot": "/Users/aiman/.openclaw/workspace/projects/kreator/qa/screenshots/03_rankings.png",
+    "bugs": []
+  },
+  {
+    "name": "Rankings - Malaysia Filter",
+    "passed": true,
+    "details": "Title: Top Creators in Malaysia, Rows: 8",
+    "screenshot": "/Users/aiman/.openclaw/workspace/projects/kreator/qa/screenshots/04_rankings_malaysia.png",
+    "bugs": []
+  },
+  {
+    "name": "Rankings - MY + TikTok Filter",
+    "passed": true,
+    "details": "Title: Top TikTokers in Malaysia, Rows: 6",
+    "screenshot": "/Users/aiman/.openclaw/workspace/projects/kreator/qa/screenshots/05_rankings_my_tiktok.png",
+    "bugs": []
+  },
+  {
+    "name": "Creator Profile",
+    "passed": true,
+    "details": "Name: Aisyah Hakim, Score: True, Audit: True, Signals: True",
+    "screenshot": "/Users/aiman/.openclaw/workspace/projects/kreator/qa/screenshots/06_creator_profile.png",
+    "bugs": []
+  },
+  {
+    "name": "Lookup Page",
+    "passed": true,
+    "details": "Heading: Creator Lookup, Input: True, Button: True",
+    "screenshot": "/Users/aiman/.openclaw/workspace/projects/kreator/qa/screenshots/07_lookup.png",
+    "bugs": []
+  },
+  {
+    "name": "Mobile Viewport",
+    "passed": true,
+    "details": "Mobile menu: OK, Pages render on mobile",
+    "screenshot": "/Users/aiman/.openclaw/workspace/projects/kreator/qa/screenshots/08a_mobile_homepage.png",
+    "bugs": []
+  },
+  {
+    "name": "API Endpoints",
+    "passed": true,
+    "details": "All API endpoints responding correctly",
+    "screenshot": "",
+    "bugs": []
+  }
+]

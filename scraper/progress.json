@@ -1,0 +1,8 @@
+{
+  "completed": "2026-03-28T19:56:18.339011+00:00",
+  "runtime_min": 23.2,
+  "new_inserted": 12,
+  "total_in_db": 330,
+  "failed": 6,
+  "skipped_small": 26
+}
