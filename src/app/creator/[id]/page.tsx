@@ -77,7 +77,7 @@ export default function CreatorPage({ params }: { params: Promise<{ id: string }
   useEffect(() => {
     if (creator && creator.country && creator.categories) {
       setLoadingSimilar(true);
-      const primaryPlatform = creator.platforms?.[0];
+      const primaryPlatform = creator.platforms?.find((p: any) => p.platform === creator.primary_platform) || creator.platforms?.[0];
       const followersRange = primaryPlatform?.followers || 0;
       const minFollowers = followersRange * 0.5;
       const maxFollowers = followersRange * 2;
@@ -121,7 +121,7 @@ export default function CreatorPage({ params }: { params: Promise<{ id: string }
     );
   }
 
-  const primaryPlatform = creator.platforms?.[0];
+  const primaryPlatform = creator.platforms?.find((p: any) => p.platform === creator.primary_platform) || creator.platforms?.[0];
   const audit = creator.audit;
   const heatScore = creator.heat_score || 0;
   const heatColors = getHeatColor(heatScore);
