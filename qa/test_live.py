@@ -314,7 +314,7 @@ def test_creators_list(base, r):
         if creators:
             under_10m = [c for c in creators if (c.get("followers") or 0) < 10_000_000]
             if not under_10m:
-                r.ok(f"tier=mega: all have 10M+ followers")
+                r.ok("tier=mega: all have 10M+ followers")
             else:
                 r.fail("tier=mega: creators under 10M", f"{len(under_10m)} incorrect")
     except Exception as e:
@@ -345,27 +345,27 @@ def test_data_integrity(base, r):
         if neg_likes == 0:
             r.ok("No negative total_likes")
         else:
-            r.fail(f"Negative total_likes", f"{neg_likes}/{len(creators)} creators")
+            r.fail("Negative total_likes", f"{neg_likes}/{len(creators)} creators")
         
         if neg_followers == 0:
             r.ok("No negative followers")
         else:
-            r.fail(f"Negative followers", f"{neg_followers}/{len(creators)} creators")
+            r.fail("Negative followers", f"{neg_followers}/{len(creators)} creators")
         
         if neg_engagement == 0:
             r.ok("No negative engagement_rate")
         else:
-            r.fail(f"Negative engagement_rate", f"{neg_engagement}/{len(creators)} creators")
+            r.fail("Negative engagement_rate", f"{neg_engagement}/{len(creators)} creators")
         
         if absurd_engagement == 0:
             r.ok("No engagement_rate > 100%")
         else:
-            r.fail(f"Absurd engagement_rate (>100%)", f"{absurd_engagement}/{len(creators)} creators")
+            r.fail("Absurd engagement_rate (>100%)", f"{absurd_engagement}/{len(creators)} creators")
         
         if zero_names == 0:
             r.ok("All creators have names")
         else:
-            r.fail(f"Missing names", f"{zero_names}/{len(creators)} creators")
+            r.fail("Missing names", f"{zero_names}/{len(creators)} creators")
     
     except Exception as e:
         r.fail("Data integrity check", str(e)[:100])
@@ -420,7 +420,7 @@ def test_local_vs_cloud(base, r):
         elif pct < 20:
             r.warn(f"Creator count drift: local={local_count:,} cloud={cloud_count:,} (diff {pct:.1f}%)")
         else:
-            r.fail(f"Creator count out of sync", f"local={local_count:,} cloud={cloud_count:,} (diff {pct:.1f}%)")
+            r.fail("Creator count out of sync", f"local={local_count:,} cloud={cloud_count:,} (diff {pct:.1f}%)")
     except Exception as e:
         r.fail("Sync comparison", str(e)[:100])
     
@@ -467,6 +467,50 @@ def test_local_vs_cloud(base, r):
     conn.close()
 
 
+def test_platform_data_coverage(base, r):
+    """Test that avg_views and engagement_rate are populated across platforms."""
+    print("\n📊 Platform Data Coverage")
+
+    if not os.path.exists(LOCAL_DB):
+        r.warn("Local DB not found", "Skipping data coverage checks")
+        return
+
+    conn = sqlite3.connect(LOCAL_DB)
+
+    platforms = conn.execute(
+        "SELECT platform, COUNT(*) as total, "
+        "SUM(CASE WHEN avg_views = 0 OR avg_views IS NULL THEN 1 ELSE 0 END) as zero_views, "
+        "SUM(CASE WHEN engagement_rate = 0 OR engagement_rate IS NULL THEN 1 ELSE 0 END) as zero_eng "
+        "FROM platform_presences GROUP BY platform ORDER BY platform"
+    ).fetchall()
+
+    for platform, total, zero_views, zero_eng in platforms:
+        views_pct = (total - zero_views) / max(total, 1) * 100
+        eng_pct = (total - zero_eng) / max(total, 1) * 100
+
+        # Views coverage
+        if views_pct >= 50:
+            r.ok(f"{platform}: avg_views populated {views_pct:.0f}% ({total - zero_views}/{total})")
+        elif views_pct >= 10:
+            r.warn(f"{platform}: avg_views low coverage {views_pct:.0f}%",
+                   f"{zero_views}/{total} creators have 0 views")
+        else:
+            r.fail(f"{platform}: avg_views missing ({views_pct:.0f}% populated)",
+                   f"{zero_views}/{total} creators have 0 views")
+
+        # Engagement coverage
+        if eng_pct >= 50:
+            r.ok(f"{platform}: engagement_rate populated {eng_pct:.0f}% ({total - zero_eng}/{total})")
+        elif eng_pct >= 10:
+            r.warn(f"{platform}: engagement_rate low coverage {eng_pct:.0f}%",
+                   f"{zero_eng}/{total} creators have 0% engagement")
+        else:
+            r.fail(f"{platform}: engagement_rate missing ({eng_pct:.0f}% populated)",
+                   f"{zero_eng}/{total} creators have 0% engagement")
+
+    conn.close()
+
+
 def test_performance(base, r):
     """Test API response times."""
     print("\n⚡ Performance")
@@ -505,7 +549,7 @@ def main():
     base = args.base.rstrip("/")
     
     print(f"{'='*60}")
-    print(f"🧪 KOLBUFF QA SUITE")
+    print("🧪 KOLBUFF QA SUITE")
     print(f"   Target: {base}")
     print(f"   Time: {datetime.now(timezone.utc).isoformat()}")
     print(f"{'='*60}")
@@ -520,6 +564,7 @@ def main():
     test_data_integrity(base, r)
     test_pages(base, r)
     test_local_vs_cloud(base, r)
+    test_platform_data_coverage(base, r)
     test_performance(base, r)
     
     summary = r.summary()
@@ -527,12 +572,12 @@ def main():
     print(f"\n{'='*60}")
     print(f"📊 RESULTS: {r.passed} passed | {r.failed} failed | {r.warnings} warnings | {summary['elapsed_seconds']}s")
     if r.failed > 0:
-        print(f"\n❌ FAILURES:")
+        print("\n❌ FAILURES:")
         for t in summary["tests"]:
             if t["status"] == "FAIL":
                 print(f"   • {t['name']}: {t['detail']}")
     if r.warnings > 0:
-        print(f"\n⚠️  WARNINGS:")
+        print("\n⚠️  WARNINGS:")
         for t in summary["tests"]:
             if t["status"] == "WARN":
                 print(f"   • {t['name']}: {t['detail']}")

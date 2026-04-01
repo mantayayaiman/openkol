@@ -3,8 +3,6 @@
 OpenKOL QA Tests — Playwright browser-based testing
 Tests every page: homepage, browse, rankings, creator profile, lookup
 """
-import os
-import sys
 import json
 import time
 from pathlib import Path
@@ -162,7 +160,7 @@ def test_browse(page: Page):
     # Check results count
     results_text = page.query_selector('div:has-text("found")')
     if results_text:
-        log(f"Results text visible")
+        log("Results text visible")
     
     # Click filters button to open panel
     if filters_btn:
@@ -253,7 +251,7 @@ def test_rankings(page: Page):
         bugs.append(f"Expected at least 3 filter dropdowns, found {len(selects)}")
     
     # Check for trophy icon
-    trophy = page.query_selector("svg")  # Trophy icon should be in heading
+    page.query_selector("svg")  # Trophy icon should be in heading
     
     ss = screenshot(page, "03_rankings")
     
@@ -566,12 +564,12 @@ def test_mobile_viewport(page: Page):
     # Browse on mobile
     page.goto(f"{BASE_URL}/browse", wait_until="networkidle", timeout=30000)
     page.wait_for_timeout(2000)
-    ss2 = screenshot(page, "08c_mobile_browse")
+    screenshot(page, "08c_mobile_browse")
     
     # Rankings on mobile
     page.goto(f"{BASE_URL}/rankings", wait_until="networkidle", timeout=30000)
     page.wait_for_timeout(2000)
-    ss3 = screenshot(page, "08d_mobile_rankings")
+    screenshot(page, "08d_mobile_rankings")
     
     # Check horizontal scroll on rankings table
     table = page.query_selector("table")
@@ -588,7 +586,7 @@ def test_mobile_viewport(page: Page):
     test_result(
         "Mobile Viewport",
         len(bugs) == 0,
-        f"Mobile menu: OK, Pages render on mobile",
+        "Mobile menu: OK, Pages render on mobile",
         ss1,
         bugs,
     )

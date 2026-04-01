@@ -12,7 +12,13 @@ on hover/tap. The mobile profile page is lighter and shows video previews.
 
 Run: PLAYWRIGHT_BROWSERS_PATH=0 python3 -u scraper/video_scraper.py 2>&1 | tee scraper/video_scraper.log
 """
-import asyncio, json, sqlite3, random, re, sys, time
+import asyncio
+import json
+import sqlite3
+import random
+import re
+import sys
+import time
 from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 
@@ -219,7 +225,7 @@ class VideoScraper:
 
     async def run(self):
         creators = get_creators_needing_videos()
-        print(f'🎬 VIDEO SCRAPER')
+        print('🎬 VIDEO SCRAPER')
         print(f'   Creators needing videos: {len(creators)}')
         print(f'   Workers: {NUM_WORKERS}')
         print(f'{"="*50}')

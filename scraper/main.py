@@ -15,7 +15,6 @@ from .scrapers.tiktok import TikTokScraper
 from .scrapers.instagram import InstagramScraper
 from .scrapers.youtube import YouTubeScraper
 from .utils.scoring import compute_audit_score
-from .models import CreatorProfile
 
 
 SCRAPERS = {
@@ -106,7 +105,7 @@ async def main():
     elif ":" in args.target:
         platform, username = args.target.split(":", 1)
     else:
-        print(f"Error: Invalid target format. Use a URL or platform:username", file=sys.stderr)
+        print("Error: Invalid target format. Use a URL or platform:username", file=sys.stderr)
         sys.exit(1)
 
     print(f"Scraping {platform}/@{username}...", file=sys.stderr)

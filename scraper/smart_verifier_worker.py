@@ -6,7 +6,12 @@ Usage: python3 smart_verifier_worker.py <worker_id> <num_workers>
 
 Each worker takes every Nth creator (round-robin by worker_id).
 """
-import asyncio, json, sqlite3, random, re, sys, time
+import asyncio
+import json
+import sqlite3
+import random
+import re
+import sys
 from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 

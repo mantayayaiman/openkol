@@ -6,7 +6,11 @@ Health checker: runs every 30 min via cron.
 3. If not, restart it.
 4. Report status.
 """
-import subprocess, sqlite3, json, os, time, sys
+import subprocess
+import sqlite3
+import json
+import os
+import time
 from datetime import datetime, timezone
 
 DB_PATH = '/Users/aiman/.openclaw/workspace/projects/kreator/kreator.db'

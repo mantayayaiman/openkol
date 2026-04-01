@@ -5,7 +5,11 @@ compares data, deletes fakes, logs results.
 
 Usage: PLAYWRIGHT_BROWSERS_PATH=0 python3 scraper/periodic_verify.py [--sample 10]
 """
-import asyncio, json, sqlite3, random, sys
+import asyncio
+import json
+import sqlite3
+import random
+import sys
 from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 
@@ -145,7 +149,7 @@ async def main():
     with open(LOG_PATH, 'a') as f:
         f.write(json.dumps(result) + '\n')
     
-    print(f'\n=== RESULTS ===')
+    print('\n=== RESULTS ===')
     print(f'Verified: {verified}/{len(creators)}')
     print(f'Mismatched (deleted): {mismatched}')
     print(f'Not found (skipped): {not_found}')

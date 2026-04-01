@@ -5,7 +5,11 @@ Video scraping approach:
 2. Playwright (stealth) navigates and intercepts the post API calls with valid signatures
 3. Alternative: parse video data directly from SSR HTML
 """
-import asyncio, json, sys, httpx, re
+import asyncio
+import json
+import sys
+import httpx
+import re
 from playwright.async_api import async_playwright
 
 USERNAME = sys.argv[1] if len(sys.argv) > 1 else 'khaborinaldo'
@@ -13,7 +17,7 @@ USERNAME = sys.argv[1] if len(sys.argv) > 1 else 'khaborinaldo'
 async def approach_httpx_ssr(username):
     """Extract all video data embedded in the SSR HTML."""
     print(f'\n{"="*50}')
-    print(f'APPROACH A: httpx SSR extraction')
+    print('APPROACH A: httpx SSR extraction')
     
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
@@ -63,7 +67,7 @@ async def approach_httpx_ssr(username):
                     for i, v in enumerate(obj[:20]):
                         find_items(v, f'{path}[{i}]', depth+1)
             
-            print(f'\n  Searching all scope data for video objects...')
+            print('\n  Searching all scope data for video objects...')
             find_items(scope)
         
         # Also look for video thumbnails in the HTML
@@ -87,7 +91,7 @@ async def approach_httpx_ssr(username):
 async def approach_playwright_stealth(username):
     """Use Playwright with stealth settings to intercept real API calls."""
     print(f'\n{"="*50}')
-    print(f'APPROACH B: Playwright stealth + API interception')
+    print('APPROACH B: Playwright stealth + API interception')
     
     async with async_playwright() as p:
         # Launch with stealth settings
@@ -213,7 +217,7 @@ async def approach_playwright_stealth(username):
 async def approach_video_page(username):
     """Get video data by fetching individual video pages (if we have IDs)."""
     print(f'\n{"="*50}')
-    print(f'APPROACH C: Individual video page scraping')
+    print('APPROACH C: Individual video page scraping')
     
     # First get video IDs from the profile page
     headers = {

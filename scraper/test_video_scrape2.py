@@ -6,7 +6,6 @@ Also test: headed browser, stealth patches, and cookie-based auth.
 import asyncio
 import json
 import sys
-import random
 
 USERNAME = sys.argv[1] if len(sys.argv) > 1 else "khaborstiktok"
 
@@ -140,7 +139,7 @@ async def approach_intercept_with_stealth():
             for vid in vid_list[:5]:
                 print(f"    - {vid}")
         
-        print(f"\n  All TikTok API endpoints called:")
+        print("\n  All TikTok API endpoints called:")
         for ep in set(all_requests):
             print(f"    - {ep}")
         
@@ -168,7 +167,7 @@ async def approach_intercept_with_stealth():
 
 async def approach_seo_vidlist():
     """Extract video IDs from seo.abtest.vidList in SSR, then fetch individual video details via oEmbed."""
-    print(f"\n=== Approach: SEO vidList + oEmbed ===")
+    print("\n=== Approach: SEO vidList + oEmbed ===")
     
     from playwright.async_api import async_playwright
     import httpx
@@ -218,7 +217,7 @@ async def main():
     print(f"Testing video scraping approaches for @{USERNAME}")
     print("=" * 60)
     
-    result = await approach_intercept_with_stealth()
+    await approach_intercept_with_stealth()
     await approach_seo_vidlist()
     
     print("\n" + "=" * 60)

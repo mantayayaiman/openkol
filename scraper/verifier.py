@@ -17,9 +17,7 @@ import asyncio
 import json
 import sqlite3
 import random
-import re
 import sys
-import time
 from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 

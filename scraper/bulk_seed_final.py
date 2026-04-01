@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Final batch to push past 300 creators."""
-import sqlite3, json, random, os
+import sqlite3
+import json
+import random
+import os
 from datetime import datetime, timedelta
 
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "kreator.db")

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Take screenshot to see what TikTok is actually rendering."""
-import asyncio, os
+import asyncio
+import os
 from playwright.async_api import async_playwright
 
 PROFILE_DIR = os.path.expanduser('~/.tiktok-scraper-profile')

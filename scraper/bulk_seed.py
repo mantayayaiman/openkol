@@ -422,12 +422,12 @@ def generate_content_samples(presence_id: int, platform: str, username: str, avg
         captions = [
             f"New content from {username} 🔥",
             f"Check this out! #{username}",
-            f"Amazing day! #fyp #viral",
+            "Amazing day! #fyp #viral",
             f"POV: When you... 😂 #{platform}",
-            f"Who can relate? 🤣 #relatable",
-            f"Tutorial time! 📚 #howto",
-            f"Day in my life ✨ #ditl",
-            f"This blew up! 💥 #trending",
+            "Who can relate? 🤣 #relatable",
+            "Tutorial time! 📚 #howto",
+            "Day in my life ✨ #ditl",
+            "This blew up! 💥 #trending",
         ]
 
         samples.append({
@@ -564,7 +564,7 @@ def main():
     conn.commit()
     conn.close()
 
-    print(f"\n✅ Bulk seed complete!")
+    print("\n✅ Bulk seed complete!")
     print(f"   Creators inserted:  {stats['creators']}")
     print(f"   Presences inserted: {stats['presences']}")
     print(f"   Content samples:    {stats['samples']}")

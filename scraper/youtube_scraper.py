@@ -5,7 +5,14 @@ Uses Playwright with consent handling, mobile UAs, and Google search discovery.
 
 Run: PLAYWRIGHT_BROWSERS_PATH=0 python3 -u scraper/youtube_scraper.py >> scraper/yt_overnight.log 2>&1
 """
-import asyncio, json, sqlite3, random, re, sys, time, os
+import asyncio
+import json
+import sqlite3
+import random
+import re
+import sys
+import time
+import os
 from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 
@@ -383,7 +390,7 @@ async def main():
         ctx = await make_yt_context(browser)
         
         # Phase 1: Discover handles
-        print(f'\n--- Phase 1: Discovering YT handles ---')
+        print('\n--- Phase 1: Discovering YT handles ---')
         sys.stdout.flush()
         
         google_handles = await discover_yt_via_google(ctx)
@@ -427,7 +434,7 @@ async def main():
         sys.stdout.flush()
         
         # Phase 2: Test consent handling first
-        print(f'\n--- Phase 2: Testing YouTube access ---')
+        print('\n--- Phase 2: Testing YouTube access ---')
         sys.stdout.flush()
         test_page = await ctx.new_page()
         try:
@@ -450,7 +457,7 @@ async def main():
             await test_page.close()
         
         # Phase 3: Scrape channels
-        print(f'\n--- Phase 3: Scraping YT channels ---')
+        print('\n--- Phase 3: Scraping YT channels ---')
         sys.stdout.flush()
         new_inserted = 0
         failed = 0
@@ -491,7 +498,7 @@ async def main():
                     ctx_count = 0
                 
                 if consecutive_failures >= 15:
-                    print(f'  🛑 15 consecutive failures — long break (5 min)')
+                    print('  🛑 15 consecutive failures — long break (5 min)')
                     sys.stdout.flush()
                     await asyncio.sleep(300)
                     consecutive_failures = 0

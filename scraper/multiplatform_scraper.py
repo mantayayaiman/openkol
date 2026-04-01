@@ -5,7 +5,13 @@ then verifies each handle exists and has real followers using platform-specific 
 
 Run: PLAYWRIGHT_BROWSERS_PATH=0 python3 -u scraper/multiplatform_scraper.py 2>&1 | tee scraper/multi_overnight.log
 """
-import asyncio, json, sqlite3, random, re, sys, time
+import asyncio
+import json
+import sqlite3
+import random
+import re
+import sys
+import time
 from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 
@@ -284,11 +290,11 @@ async def main():
         )
         
         # PHASE 1: Collect handles from list sites
-        print(f'\n--- Phase 1: Collecting handles from list sites ---')
+        print('\n--- Phase 1: Collecting handles from list sites ---')
         sys.stdout.flush()
         
         for label, url in LIST_URLS.items():
-            platform = label.split('_')[0]
+            label.split('_')[0]
             country_key = label.split('_')[1]
             country = COUNTRY_MAP.get(country_key, 'SEA')
             
@@ -344,7 +350,7 @@ async def main():
                 ig_failed += 1
                 empty_streak += 1
                 if empty_streak >= 8:
-                    print(f'  ⚠️ IG blocked, pausing 120s...')
+                    print('  ⚠️ IG blocked, pausing 120s...')
                     sys.stdout.flush()
                     await asyncio.sleep(120)
                     empty_streak = 0

@@ -12,7 +12,12 @@ Changes from v2:
 
 Run: PLAYWRIGHT_BROWSERS_PATH=0 python3 -u scraper/smart_verifier_v3.py 2>&1 | tee scraper/smart_verifier_v3.log
 """
-import asyncio, json, sqlite3, random, re, sys, time
+import asyncio
+import json
+import sqlite3
+import random
+import re
+import sys
 from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 
@@ -324,10 +329,10 @@ async def main():
     print(f'\n{"="*60}')
     print(f'DONE | Scanned: {scanned} | Country: {country_fixes} | Category: {cat_fixes} | Bio: {bio_updates}')
     print(f'Errors: {errors} | Captchas seen: {captchas}')
-    print(f'\nCountry distribution:')
+    print('\nCountry distribution:')
     for row in conn.execute('SELECT country, COUNT(*) FROM creators GROUP BY country ORDER BY COUNT(*) DESC'):
         print(f'  {row[0]}: {row[1]}')
-    print(f'\nTop categories:')
+    print('\nTop categories:')
     for row in conn.execute('SELECT categories, COUNT(*) FROM creators GROUP BY categories ORDER BY COUNT(*) DESC LIMIT 15'):
         print(f'  {row[0]}: {row[1]}')
     conn.close()

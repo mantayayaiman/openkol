@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """YT priority worker — scrapes remaining YouTube handles from YuBin's data."""
-import asyncio, json, sqlite3, random, re, sys, time
+import asyncio
+import json
+import sqlite3
+import random
+import re
+import sys
 from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 

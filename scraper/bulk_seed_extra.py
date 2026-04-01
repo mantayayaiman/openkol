@@ -229,7 +229,7 @@ def main():
 
     conn.commit()
     conn.close()
-    print(f"✅ Extra batch complete!")
+    print("✅ Extra batch complete!")
     for k, v in stats.items():
         print(f"   {k}: {v}")
 

@@ -6,7 +6,6 @@ Goal: Get video list (IDs, views, likes, dates) for a creator.
 import asyncio
 import json
 import sys
-import os
 
 # Test creator
 USERNAME = sys.argv[1] if len(sys.argv) > 1 else "khaborstiktok"
@@ -68,7 +67,7 @@ async def approach_2_playwright_ssr():
             
             # Check for user-detail (we already use this)
             user_detail = scope.get('webapp.user-detail', {})
-            user_info = user_detail.get('userInfo', {})
+            user_detail.get('userInfo', {})
             
             # Check for user-post (this is what we want!)
             user_post = scope.get('webapp.user-post', {})
@@ -217,7 +216,7 @@ async def main():
     
     # Only try TikTok-Api if others fail
     if not r2 and not r4:
-        r1 = await approach_1_tiktokapi()
+        await approach_1_tiktokapi()
     
     print("\n" + "=" * 60)
     print("RESULTS:")

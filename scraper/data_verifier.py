@@ -9,7 +9,13 @@ Processes top creators first (highest followers = most important to get right).
 
 Run: PLAYWRIGHT_BROWSERS_PATH=0 python3 -u scraper/data_verifier.py 2>&1 | tee scraper/verifier_scan.log
 """
-import asyncio, httpx, json, sqlite3, random, re, sys, time
+import asyncio
+import json
+import sqlite3
+import random
+import re
+import sys
+import time
 from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 
@@ -172,7 +178,7 @@ async def scrape_tiktok_for_verification(page, username):
         if 'userInfo' not in ud:
             return None
         u = ud['userInfo']['user']
-        s = ud['userInfo']['stats']
+        ud['userInfo']['stats']
         return {
             'bio': u.get('signature', ''),
             'name': u.get('nickname', ''),
@@ -292,14 +298,14 @@ async def main():
         await browser.close()
     
     print(f'\n{"="*60}')
-    print(f'VERIFICATION COMPLETE')
+    print('VERIFICATION COMPLETE')
     print(f'Scanned: {total_scanned}')
     print(f'Country fixes: {updated_country}')
     print(f'Category fixes: {updated_category}')
     
     # Show final distribution
     conn = sqlite3.connect(DB_PATH)
-    print(f'\nCountry distribution:')
+    print('\nCountry distribution:')
     for row in conn.execute('SELECT country, COUNT(*) FROM creators GROUP BY country ORDER BY COUNT(*) DESC'):
         print(f'  {row[0]}: {row[1]}')
     conn.close()

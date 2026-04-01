@@ -357,7 +357,7 @@ async def main():
                         # Accept whatever we got
                         if data:
                             results.append(data)
-                            print(f"Accepted with 0 followers ⚠️")
+                            print("Accepted with 0 followers ⚠️")
                         else:
                             failed.append(username)
                             print("❌ Failed")

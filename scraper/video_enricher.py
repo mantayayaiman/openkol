@@ -13,7 +13,6 @@ import sqlite3
 import subprocess
 import sys
 import time
-import os
 import random
 from datetime import datetime, timezone
 
@@ -144,7 +143,7 @@ def main():
     total = len(creators)
     
     print(f'{"="*60}')
-    print(f'🎬 VIDEO ENRICHER (yt-dlp)')
+    print('🎬 VIDEO ENRICHER (yt-dlp)')
     print(f'   Creators needing video data: {total}')
     print(f'   Videos per creator: {VIDEOS_PER_CREATOR}')
     print(f'{"="*60}')

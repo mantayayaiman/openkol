@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 
 from .base import BaseScraper
-from ..models import PlatformProfile, ContentItem
+from ..models import PlatformProfile
 from ..utils.anti_detect import random_delay
 
 

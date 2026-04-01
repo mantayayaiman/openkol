@@ -3,7 +3,9 @@
 Crack video scraping: Use Playwright to intercept the actual API calls
 TikTok makes when loading a user's video grid.
 """
-import asyncio, json, sys
+import asyncio
+import json
+import sys
 from playwright.async_api import async_playwright
 
 USERNAME = sys.argv[1] if len(sys.argv) > 1 else 'soloz_official'
@@ -61,17 +63,17 @@ async def main():
         
         page.on('response', handle_response)
         
-        print(f'Loading profile page...')
+        print('Loading profile page...')
         await page.goto(f'https://www.tiktok.com/@{USERNAME}', wait_until='domcontentloaded', timeout=15000)
         await asyncio.sleep(2)
         
-        print(f'\nScrolling to trigger video load...')
+        print('\nScrolling to trigger video load...')
         # Scroll down multiple times to trigger lazy loading
         for i in range(5):
             await page.evaluate('window.scrollBy(0, 800)')
             await asyncio.sleep(1)
         
-        print(f'\nWaiting for any remaining API calls...')
+        print('\nWaiting for any remaining API calls...')
         await asyncio.sleep(3)
         
         print(f'\n{"="*50}')

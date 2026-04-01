@@ -11,7 +11,6 @@ Requires: pip install libsql-experimental  (or use HTTP API)
 """
 import sqlite3
 import json
-import os
 import sys
 import time
 import urllib.request

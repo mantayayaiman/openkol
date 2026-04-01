@@ -215,7 +215,7 @@ def main():
     warm = sum(1 for s in scores if 40 <= s < 60)
     cool = sum(1 for s in scores if s < 40)
 
-    print(f"\nHeat Score Distribution:")
+    print("\nHeat Score Distribution:")
     print(f"  🔴 On Fire (80-100): {on_fire}")
     print(f"  🟠 Hot     (60-79):  {hot}")
     print(f"  🟡 Warm    (40-59):  {warm}")

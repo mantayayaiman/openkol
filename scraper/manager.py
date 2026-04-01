@@ -200,7 +200,7 @@ def main():
         conn = sqlite3.connect(DB_PATH)
         countries = conn.execute('SELECT country, COUNT(*) FROM creators GROUP BY country ORDER BY COUNT(*) DESC').fetchall()
         conn.close()
-        print(f'\n  Country breakdown:')
+        print('\n  Country breakdown:')
         for c, n in countries:
             print(f'    {c}: {n}')
         health_entry['countries'] = {c: n for c, n in countries}
@@ -211,9 +211,9 @@ def main():
     log_health(health_entry)
     
     if any_restarted:
-        print(f'\n  ⚡ Scrapers were restarted. Manager will check again in 30 min.')
+        print('\n  ⚡ Scrapers were restarted. Manager will check again in 30 min.')
     else:
-        print(f'\n  ✅ All scrapers healthy.')
+        print('\n  ✅ All scrapers healthy.')
     
     print(f'{"="*60}\n')
     sys.stdout.flush()

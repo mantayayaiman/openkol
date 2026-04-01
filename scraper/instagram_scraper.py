@@ -5,7 +5,14 @@ Uses Playwright with mobile UA rotation, exponential backoff, and proper resumpt
 
 Run: PLAYWRIGHT_BROWSERS_PATH=0 python3 -u scraper/instagram_scraper.py >> scraper/ig_overnight.log 2>&1
 """
-import asyncio, json, sqlite3, random, re, sys, time, os
+import asyncio
+import json
+import sqlite3
+import random
+import re
+import sys
+import time
+import os
 from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 
@@ -335,7 +342,7 @@ async def main():
         ctx = await make_fresh_context(browser)
         
         # Phase 1: Get handles from TikTok creator bios
-        print(f'\n--- Phase 1: Extract IG handles from TikTok bios ---')
+        print('\n--- Phase 1: Extract IG handles from TikTok bios ---')
         conn = sqlite3.connect(DB_PATH)
         creators = conn.execute('SELECT name, bio FROM creators').fetchall()
         conn.close()
@@ -350,7 +357,7 @@ async def main():
         sys.stdout.flush()
         
         # Phase 2: Google search for IG handles
-        print(f'\n--- Phase 2: Google Search ---')
+        print('\n--- Phase 2: Google Search ---')
         google_handles = await collect_ig_handles_from_google(ctx)
         handle_queue.update(google_handles - existing_ig - attempted_set)
         print(f'  From Google: {len(google_handles)} handles ({len(google_handles - existing_ig - attempted_set)} new)')
@@ -397,7 +404,7 @@ async def main():
         sys.stdout.flush()
         
         # Phase 4: Scrape each handle
-        print(f'\n--- Phase 4: Scraping IG profiles ---')
+        print('\n--- Phase 4: Scraping IG profiles ---')
         sys.stdout.flush()
         
         queue_list = list(handle_queue)
@@ -455,7 +462,7 @@ async def main():
                     ctx_count = 0
                 
                 if consecutive_failures >= 10:
-                    print(f'  🛑 10 consecutive failures — taking a long break (5 min)')
+                    print('  🛑 10 consecutive failures — taking a long break (5 min)')
                     sys.stdout.flush()
                     await asyncio.sleep(300)
                     consecutive_failures = 0

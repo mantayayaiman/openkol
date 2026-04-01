@@ -25,7 +25,7 @@ async def approach_xbogus_httpx():
     3. Sign with XBogus
     4. Make API call with httpx
     """
-    print(f"\n=== XBogus + httpx approach ===")
+    print("\n=== XBogus + httpx approach ===")
     
     async with httpx.AsyncClient(follow_redirects=True, timeout=15) as client:
         # Step 1: Hit TikTok to get cookies
@@ -81,7 +81,7 @@ async def approach_xbogus_httpx():
         ud = data.get('__DEFAULT_SCOPE__', {}).get('webapp.user-detail', {})
         
         if ud.get('statusCode') == 10221:
-            print(f"  ❌ Captcha'd (10221)")
+            print("  ❌ Captcha'd (10221)")
             # Try with different cookie approach
         
         user = ud.get('userInfo', {}).get('user', {})
@@ -140,7 +140,7 @@ async def approach_xbogus_httpx():
         full_url = f'https://www.tiktok.com/api/post/item_list/?{signed_params}'
         
         print(f"  X-Bogus: {xbogus_val}")
-        print(f"  Making signed API call...")
+        print("  Making signed API call...")
         
         cookie_str = '; '.join(f'{k}={v}' for k, v in cookies.items())
         
@@ -188,7 +188,7 @@ async def approach_xbogus_httpx():
 
 async def approach_headed_browser():
     """Try headed browser (visible window) — harder for TikTok to detect."""
-    print(f"\n=== Headed browser approach ===")
+    print("\n=== Headed browser approach ===")
     from playwright.async_api import async_playwright
     
     captured = []

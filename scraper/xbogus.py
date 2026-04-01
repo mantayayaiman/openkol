@@ -113,17 +113,11 @@ class XBogus:
         array3 = []
         array4 = []
         
-        new_arr = [
-            64, 0.00390625, 1, 12,
-            url_params, self.user_agent,
-            ct, now, canvas
-        ]
         
         # Build array3 (from URL params)
-        xb_str = self.md5_str_to_array(self.md5(url_params))
+        self.md5_str_to_array(self.md5(url_params))
         
         # Build combined
-        idx = 0
         for b in range(0, len(array1), 2):
             combined = array1[b] ^ array2[b]
             array3.append(combined)
@@ -139,7 +133,7 @@ class XBogus:
             now & 255,
         ]
         
-        ct_bytes = [
+        [
             (ct >> 24) & 255,
             (ct >> 16) & 255,
             (ct >> 8) & 255,
@@ -147,7 +141,7 @@ class XBogus:
         ]
         
         # Canvas hash
-        canvas_bytes = [
+        [
             (canvas >> 24) & 255,
             (canvas >> 16) & 255,
             (canvas >> 8) & 255,

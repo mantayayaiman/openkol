@@ -4,7 +4,11 @@ Use a persistent browser profile to maintain TikTok session state.
 First run: creates profile and loads TikTok (needs one manual interaction).
 Subsequent runs: reuses cookies and should bypass anti-bot.
 """
-import asyncio, json, sys, os, random
+import asyncio
+import json
+import sys
+import os
+import random
 from playwright.async_api import async_playwright
 
 USERNAME = sys.argv[1] if len(sys.argv) > 1 else 'charlidamelio'
@@ -105,7 +109,7 @@ async def main():
                 json.dump(video_items[:30], f, indent=2, ensure_ascii=False)
         
         if dom_links:
-            print(f'\nFirst 5 DOM links:')
+            print('\nFirst 5 DOM links:')
             for link in dom_links[:5]:
                 print(f'  {link}')
         

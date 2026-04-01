@@ -1,0 +1,13 @@
+{
+  "completed_regions": [
+    "MY",
+    "ID",
+    "TH",
+    "VN",
+    "PH"
+  ],
+  "current_region": "PH",
+  "current_page": 0,
+  "total_scraped": 569,
+  "total_new": 249
+}

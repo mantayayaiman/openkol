@@ -11,7 +11,6 @@ import sqlite3
 import subprocess
 import sys
 import time
-import os
 import random
 from datetime import datetime, timezone
 
@@ -84,7 +83,7 @@ def fetch_videos_ytdlp(username, count=VIDEOS_PER_CREATOR):
         return videos
     except subprocess.TimeoutExpired:
         return []
-    except Exception as e:
+    except Exception:
         return []
 
 

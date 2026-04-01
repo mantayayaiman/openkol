@@ -13,8 +13,12 @@ Language mapping:
 
 Run: PLAYWRIGHT_BROWSERS_PATH=0 python3 -u scraper/smart_verifier.py 2>&1 | tee scraper/smart_verifier.log
 """
-import asyncio, json, sqlite3, random, re, sys, time
-from datetime import datetime, timezone
+import asyncio
+import json
+import sqlite3
+import random
+import re
+import sys
 from playwright.async_api import async_playwright
 
 DB_PATH = '/Users/aiman/.openclaw/workspace/projects/kreator/kreator.db'
@@ -214,7 +218,7 @@ async def main():
     conn = sqlite3.connect(DB_PATH)
     print(f'\n{"="*60}')
     print(f'DONE | Scanned: {scanned} | Country fixes: {country_fixes} | Category fixes: {cat_fixes}')
-    print(f'\nCountry distribution:')
+    print('\nCountry distribution:')
     for row in conn.execute('SELECT country, COUNT(*) FROM creators GROUP BY country ORDER BY COUNT(*) DESC LIMIT 15'):
         print(f'  {row[0]}: {row[1]}')
     conn.close()

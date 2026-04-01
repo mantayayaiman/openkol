@@ -9,7 +9,6 @@ import re
 import os
 import time
 import requests
-from urllib.parse import urlparse
 
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "kreator.db")
 
@@ -97,7 +96,7 @@ def scrape_linkinbio(url: str) -> dict:
         if phone:
             result['phone'] = phone
             
-    except Exception as e:
+    except Exception:
         pass
     
     return result
@@ -194,7 +193,7 @@ def main():
         FROM creators
     """).fetchone()
     
-    print(f"\n=== Contact Coverage ===")
+    print("\n=== Contact Coverage ===")
     print(f"  Total creators: {stats['total']}")
     print(f"  With contact info: {stats['with_contact']} ({stats['with_contact']*100//stats['total']}%)")
     print(f"    Emails: {stats['with_email']}")

@@ -1,4 +1,8 @@
-import asyncio, json, sqlite3, random, time
+import asyncio
+import json
+import sqlite3
+import random
+import time
 from playwright.async_api import async_playwright
 
 DB_PATH = '/Users/aiman/.openclaw/workspace/projects/kreator/kreator.db'
@@ -159,7 +163,7 @@ async def verify_all():
     
     # Summary
     remaining = conn.execute('SELECT COUNT(*) FROM creators').fetchone()[0]
-    print(f'\n=== VERIFICATION COMPLETE ===')
+    print('\n=== VERIFICATION COMPLETE ===')
     print(f'Total checked: {len(creators)}')
     print(f'Verified REAL: {len(verified)}')
     print(f'FAKE (deleted): {len(fake)}')
@@ -168,15 +172,15 @@ async def verify_all():
     print(f'Context refreshes: {context_refresh_count}')
     
     if mismatch_details:
-        print(f'\n--- DATA MISMATCHES (updated with real data) ---')
+        print('\n--- DATA MISMATCHES (updated with real data) ---')
         for m in mismatch_details:
             print(f'  @{m["username"]}: DB={m["db_followers"]:,} → Real={m["real_followers"]:,} (ratio={m["ratio"]:.2f})')
     
     # Write report
     with open('/Users/aiman/.openclaw/workspace/projects/kreator/scraper/full_verification_report.md', 'w') as f:
-        f.write(f'# Full Verification Report\n\n')
+        f.write('# Full Verification Report\n\n')
         f.write(f'**Date:** {time.strftime("%Y-%m-%d %H:%M:%S")}\n\n')
-        f.write(f'## Summary\n\n')
+        f.write('## Summary\n\n')
         f.write(f'- Total checked: {len(creators)}\n')
         f.write(f'- Verified REAL: {len(verified)}\n')
         f.write(f'- FAKE (deleted): {len(fake)}\n')
@@ -185,20 +189,20 @@ async def verify_all():
         f.write(f'- Context refreshes: {context_refresh_count}\n\n')
         
         if fake:
-            f.write(f'## Deleted Fake Entries\n\n')
+            f.write('## Deleted Fake Entries\n\n')
             for cid in fake:
                 uname = [c['username'] for c in creators if c['id'] == cid]
                 f.write(f'- @{uname[0] if uname else cid}\n')
             f.write('\n')
         
         if mismatch_details:
-            f.write(f'## Data Mismatches (corrected)\n\n')
+            f.write('## Data Mismatches (corrected)\n\n')
             for m in mismatch_details:
                 f.write(f'- @{m["username"]}: DB={m["db_followers"]:,} → Real={m["real_followers"]:,}\n')
             f.write('\n')
         
         if failed:
-            f.write(f'## Failed to Verify (skipped)\n\n')
+            f.write('## Failed to Verify (skipped)\n\n')
             for cid in failed:
                 uname = [c['username'] for c in creators if c['id'] == cid]
                 f.write(f'- @{uname[0] if uname else cid}\n')

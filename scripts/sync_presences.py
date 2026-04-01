@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Quick sync: platform_presences + content_samples to Turso."""
-import sqlite3, json, urllib.request, sys, time
+import sqlite3
+import json
+import urllib.request
+import sys
+import time
 
 LOCAL_DB = '/Users/aiman/.openclaw/workspace/projects/kreator/kreator.db'
 BATCH = 200

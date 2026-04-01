@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-03-30T09:24:57.442640+00:00",
-  "elapsed_seconds": 27.1,
-  "passed": 45,
-  "failed": 0,
-  "warnings": 0,
-  "total": 45,
+  "timestamp": "2026-03-31T20:35:09.960706+00:00",
+  "elapsed_seconds": 43.2,
+  "passed": 48,
+  "failed": 4,
+  "warnings": 2,
+  "total": 54,
   "tests": [
     {
       "name": "Stats API",
@@ -32,12 +32,12 @@
       "detail": ""
     },
     {
-      "name": "Creator count: 32,099",
+      "name": "Creator count: 39,393",
       "status": "PASS",
       "detail": ""
     },
     {
-      "name": "Country count: 13",
+      "name": "Country count: 14",
       "status": "PASS",
       "detail": ""
     },
@@ -112,22 +112,27 @@
       "detail": ""
     },
     {
-      "name": "country=MY: 7944 total, 5 returned",
+      "name": "country=MY: 8440 total, 5 returned",
       "status": "PASS",
       "detail": ""
     },
     {
-      "name": "country=ID: 1956 total, 5 returned",
+      "name": "country=ID: 2320 total, 5 returned",
       "status": "PASS",
       "detail": ""
     },
     {
-      "name": "country=SG: 431 total, 5 returned",
+      "name": "country=SG: 496 total, 5 returned",
       "status": "PASS",
       "detail": ""
     },
     {
       "name": "sort=followers: correctly ordered DESC",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tier=mega: all have 10M+ followers",
       "status": "PASS",
       "detail": ""
     },
@@ -192,7 +197,7 @@
       "detail": ""
     },
     {
-      "name": "Creator count sync: local=32,285 cloud=32,099 (diff 0.6%)",
+      "name": "Creator count sync: local=39,576 cloud=39,576 (diff 0.0%)",
       "status": "PASS",
       "detail": ""
     },
@@ -202,7 +207,7 @@
       "detail": ""
     },
     {
-      "name": "Video enrichment: 6,822/11,841 TikTok creators (58%)",
+      "name": "Video enrichment: 6,822/13,330 TikTok creators (51%)",
       "status": "PASS",
       "detail": ""
     },
@@ -212,22 +217,62 @@
       "detail": ""
     },
     {
-      "name": "Stats: 0.59s",
+      "name": "facebook: avg_views missing (0% populated)",
+      "status": "FAIL",
+      "detail": "777/777 creators have 0 views"
+    },
+    {
+      "name": "facebook: engagement_rate missing (0% populated)",
+      "status": "FAIL",
+      "detail": "777/777 creators have 0% engagement"
+    },
+    {
+      "name": "instagram: avg_views missing (0% populated)",
+      "status": "FAIL",
+      "detail": "2511/2511 creators have 0 views"
+    },
+    {
+      "name": "instagram: engagement_rate missing (0% populated)",
+      "status": "FAIL",
+      "detail": "2511/2511 creators have 0% engagement"
+    },
+    {
+      "name": "tiktok: avg_views populated 51% (6822/13330)",
       "status": "PASS",
       "detail": ""
     },
     {
-      "name": "Creators list: 0.84s",
+      "name": "tiktok: engagement_rate populated 95% (12666/13330)",
       "status": "PASS",
       "detail": ""
     },
     {
-      "name": "Suggest: 1.33s",
+      "name": "youtube: avg_views low coverage 33%",
+      "status": "WARN",
+      "detail": "16854/25072 creators have 0 views"
+    },
+    {
+      "name": "youtube: engagement_rate low coverage 24%",
+      "status": "WARN",
+      "detail": "18992/25072 creators have 0% engagement"
+    },
+    {
+      "name": "Stats: 0.66s",
       "status": "PASS",
       "detail": ""
     },
     {
-      "name": "Creator detail: 0.86s",
+      "name": "Creators list: 1.41s",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Suggest: 1.28s",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Creator detail: 1.52s",
       "status": "PASS",
       "detail": ""
     }

@@ -9,7 +9,13 @@ then scrape the public page info.
 
 Run: PLAYWRIGHT_BROWSERS_PATH=0 python3 -u scraper/facebook_scraper.py 2>&1 | tee scraper/fb_overnight.log
 """
-import asyncio, json, sqlite3, random, re, sys, time
+import asyncio
+import json
+import sqlite3
+import random
+import re
+import sys
+import time
 from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 
@@ -182,7 +188,7 @@ async def scrape_fb_page(ctx, page_id):
             }
         
         return None
-    except Exception as e:
+    except Exception:
         return None
     finally:
         await page.close()
@@ -193,7 +199,7 @@ async def discover_fb_pages(ctx):
     
     # Source 1: Use existing creator names to find their FB pages via Google
     conn = sqlite3.connect(DB_PATH)
-    creators = conn.execute('SELECT name, country FROM creators').fetchall()
+    conn.execute('SELECT name, country FROM creators').fetchall()
     conn.close()
     
     # Source 2: Google search for FB pages of known creators
@@ -283,7 +289,7 @@ async def main():
         )
         
         # Discover handles
-        print(f'\n--- Discovering FB pages ---')
+        print('\n--- Discovering FB pages ---')
         sys.stdout.flush()
         all_handles = await discover_fb_pages(ctx)
         handle_queue = list(all_handles - existing_fb)
@@ -292,11 +298,10 @@ async def main():
         sys.stdout.flush()
         
         # Scrape each
-        print(f'\n--- Scraping FB pages ---')
+        print('\n--- Scraping FB pages ---')
         sys.stdout.flush()
         new_inserted = 0
         failed = 0
-        blocked = 0
         ctx_count = 0
         empty_streak = 0
         
@@ -320,7 +325,7 @@ async def main():
                 failed += 1
                 empty_streak += 1
                 if empty_streak >= 5:
-                    print(f'  ⚠️ 5 failures in a row, pausing 180s (FB is very strict)...')
+                    print('  ⚠️ 5 failures in a row, pausing 180s (FB is very strict)...')
                     sys.stdout.flush()
                     await asyncio.sleep(180)
                     empty_streak = 0

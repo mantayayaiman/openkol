@@ -7,7 +7,10 @@ Spot checker: runs every hour via cron.
 4. Log accuracy rate
 5. If accuracy < 80%, flag alert
 """
-import asyncio, json, sqlite3, random, sys
+import asyncio
+import json
+import sqlite3
+import random
 from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 
@@ -28,7 +31,6 @@ async def verify_on_tiktok(username):
             await asyncio.sleep(2)
             data = await page.evaluate('() => { const el = document.getElementById("__UNIVERSAL_DATA_FOR_REHYDRATION__"); return el ? el.textContent : null; }')
             if data:
-                import re
                 parsed = json.loads(data)
                 ud = parsed.get('__DEFAULT_SCOPE__', {}).get('webapp.user-detail', {})
                 if 'userInfo' in ud:

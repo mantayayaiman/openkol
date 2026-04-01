@@ -110,7 +110,7 @@ async def main():
             print(f"  After explore: {has_signer}")
         
         # Step 3: Make the signed API call from within the browser
-        print(f"\n3. Fetching videos...")
+        print("\n3. Fetching videos...")
         
         result = await page.evaluate('''async (secUid) => {
             try {

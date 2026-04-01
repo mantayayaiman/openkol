@@ -13,7 +13,8 @@ Real data requires creators to connect their business accounts (Phase 2).
 
 Run: python3 scraper/estimate_demographics.py
 """
-import sqlite3, json, re, sys
+import sqlite3
+import json
 
 DB_PATH = '/Users/aiman/.openclaw/workspace/projects/kreator/kreator.db'
 

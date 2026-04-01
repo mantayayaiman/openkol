@@ -8,7 +8,13 @@ Also tries to scrape recent video data (6 most recent videos) for each creator.
 
 Run: PLAYWRIGHT_BROWSERS_PATH=0 python3 -u scraper/bulk_import.py 2>&1 | tee scraper/bulk_import.log
 """
-import asyncio, json, sqlite3, random, re, sys, time
+import asyncio
+import json
+import sqlite3
+import random
+import re
+import sys
+import time
 from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 
@@ -246,7 +252,7 @@ class BulkImporter:
         new_handles = [h for h in handles if h.lower() not in existing]
         random.shuffle(new_handles)  # Randomize to avoid patterns
         
-        print(f'🚀 BULK IMPORT SCRAPER')
+        print('🚀 BULK IMPORT SCRAPER')
         print(f'   Handles from file: {len(handles)}')
         print(f'   Already in DB: {len(handles)-len(new_handles)}')
         print(f'   New to scrape: {len(new_handles)}')

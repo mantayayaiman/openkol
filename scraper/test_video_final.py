@@ -7,8 +7,6 @@ then make API calls from within the browser context (same-origin, no CORS).
 import asyncio
 import json
 import sys
-import time
-import random
 
 USERNAME = sys.argv[1] if len(sys.argv) > 1 else "khaborstiktok"
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
@@ -90,7 +88,7 @@ async def main():
             return
         
         # Step 3: Fetch videos using signed API call from within the browser
-        print(f"\n2. Fetching videos via signed API call...")
+        print("\n2. Fetching videos via signed API call...")
         
         videos = await page.evaluate('''async (secUid) => {
             try {

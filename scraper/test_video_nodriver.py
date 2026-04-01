@@ -3,7 +3,9 @@
 Test nodriver (undetectable Chrome) for TikTok video scraping.
 nodriver patches Chrome DevTools Protocol detection.
 """
-import asyncio, json, sys
+import asyncio
+import json
+import sys
 
 USERNAME = sys.argv[1] if len(sys.argv) > 1 else 'khaborinaldo'
 
@@ -69,11 +71,11 @@ async def main():
     print(f'Result: {json.dumps(result, indent=2, ensure_ascii=False)[:2000]}')
     
     if result.get('hasUserInfo'):
-        print(f'\n✅ Got user data!')
+        print('\n✅ Got user data!')
         print(f'   {result["user"]["nickname"]} | {result["user"]["followers"]:,} followers | {result["user"]["videoCount"]} videos')
         
         # Now scroll down to load video grid
-        print(f'\nScrolling to load videos...')
+        print('\nScrolling to load videos...')
         for i in range(5):
             await page.evaluate('window.scrollBy(0, 800)')
             await asyncio.sleep(1)
@@ -110,7 +112,7 @@ async def main():
         
         # Try to intercept the post API directly
         if videos['count'] == 0:
-            print(f'\nNo video elements in DOM. Trying API call...')
+            print('\nNo video elements in DOM. Trying API call...')
             sec_uid = result['user']['secUid']
             
             # Navigate to the API URL in the browser context (should have valid cookies + signatures)

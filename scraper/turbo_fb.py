@@ -13,7 +13,14 @@ We don't need to be logged in — just load the public page.
 
 Run: PLAYWRIGHT_BROWSERS_PATH=0 python3 -u scraper/turbo_fb.py 2>&1 | tee scraper/turbo_fb.log
 """
-import asyncio, httpx, json, sqlite3, random, re, sys, time
+import asyncio
+import httpx
+import json
+import sqlite3
+import random
+import re
+import sys
+import time
 from datetime import datetime, timezone
 from urllib.parse import quote
 from playwright.async_api import async_playwright
@@ -85,8 +92,10 @@ async def insert_fb(c):
                     (c['name'],c.get('bio',''),c.get('avatar',''),country,'facebook',json.dumps(cats),now,now))
                 cid = cur.lastrowid
             
+            # ER will be populated by fb_video_enricher later
+            er = 0
             conn.execute('INSERT INTO platform_presences (creator_id,platform,username,url,followers,following,total_likes,total_videos,engagement_rate,last_scraped_at) VALUES (?,?,?,?,?,?,?,?,?,?)',
-                (cid,'facebook',c['username'],f'https://www.facebook.com/{c["username"]}',c['followers'],0,c.get('likes',0),0,0,now))
+                (cid,'facebook',c['username'],f'https://www.facebook.com/{c["username"]}',c['followers'],0,c.get('likes',0),0,er,now))
             conn.commit(); return True
         except: conn.rollback(); return False
         finally: conn.close()

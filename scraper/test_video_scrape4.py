@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Dump full vidList and explore all video data from TikTok profiles."""
-import asyncio, json, sys, httpx, re
+import asyncio
+import json
+import sys
+import httpx
+import re
 
 USERNAME = sys.argv[1] if len(sys.argv) > 1 else 'kingshahx'
 
@@ -27,7 +31,7 @@ async def main():
         seo = scope.get('seo.abtest', {})
         vid_list = seo.get('vidList', [])
         print(f'vidList has {len(vid_list)} items')
-        print(f'\nFull vidList dump:')
+        print('\nFull vidList dump:')
         print(json.dumps(vid_list, indent=2, ensure_ascii=False)[:3000])
         
         # Also check: is there a SIGI_STATE?
@@ -44,12 +48,12 @@ async def main():
         
         # Full dump of webapp.user-detail
         ud = scope.get('webapp.user-detail', {})
-        print(f'\nwebapp.user-detail full dump:')
+        print('\nwebapp.user-detail full dump:')
         print(json.dumps(ud, indent=2, ensure_ascii=False)[:2000])
         
         # Now try: fetch videos via the post/item_list API using cookies from this session
         print(f'\n{"="*50}')
-        print(f'Trying post API with session cookies...')
+        print('Trying post API with session cookies...')
         
         if 'userInfo' in ud:
             sec_uid = ud['userInfo']['user'].get('secUid', '')

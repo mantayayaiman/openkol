@@ -6,7 +6,13 @@ Usage: python3 parallel_worker.py <platform> <chunk_file> <worker_id>
   chunk_file: path to JSON array of handles
   worker_id: 0, 1, 2...
 """
-import asyncio, httpx, json, sqlite3, random, re, sys, time
+import asyncio
+import httpx
+import json
+import sqlite3
+import random
+import re
+import sys
 from datetime import datetime, timezone
 
 DB_PATH = '/Users/aiman/.openclaw/workspace/projects/kreator/kreator.db'

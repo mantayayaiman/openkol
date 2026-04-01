@@ -2,7 +2,11 @@
 """
 Deep dive: Mobile web UA + httpx — extract video list from TikTok profiles.
 """
-import asyncio, json, sys, httpx, re
+import asyncio
+import json
+import sys
+import httpx
+import re
 
 USERNAME = sys.argv[1] if len(sys.argv) > 1 else 'soloz'
 
@@ -31,7 +35,7 @@ async def main():
         scope = data.get('__DEFAULT_SCOPE__', {})
         
         # Print ALL scope keys and sizes
-        print(f'\nAll scopes:')
+        print('\nAll scopes:')
         for k, v in scope.items():
             print(f'  {k}: {len(json.dumps(v))} bytes')
         
@@ -70,7 +74,7 @@ async def main():
                         print()
         
         # Check ALL scope data for anything video-related
-        print(f'\n🔍 Scanning all scopes for video/item data...')
+        print('\n🔍 Scanning all scopes for video/item data...')
         for scope_key, scope_val in scope.items():
             if not isinstance(scope_val, dict):
                 continue
@@ -97,7 +101,7 @@ async def main():
     
     # Approach B: Try with desktop UA but different Accept header  
     print(f'\n{"="*50}')
-    print(f'Approach B: Desktop UA with cookies')
+    print('Approach B: Desktop UA with cookies')
     headers2 = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',

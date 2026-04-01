@@ -17,7 +17,6 @@ Architecture:
 Run: PLAYWRIGHT_BROWSERS_PATH=0 python3 -u scraper/turbo_scraper.py 2>&1 | tee scraper/turbo.log
 """
 import asyncio
-import httpx
 import json
 import sqlite3
 import random
@@ -217,7 +216,7 @@ async def search_tiktok(page, query, scroll_count=5):
         all_handles = set(uids) | set(hrefs)
         skip = {'explore','about','discover','live','foryou','tiktok','login','signup','search','following','inbox','upload','p'}
         handles = [h for h in all_handles if h.lower() not in skip and len(h) > 1 and not h.startswith('__')]
-    except Exception as e:
+    except Exception:
         pass
     return handles
 
@@ -426,7 +425,7 @@ class TurboScraper:
         
         # After initial search round, switch to suggestion chaining
         while self.running:
-            print(f'\n🔗 SUGGESTION CHAIN ROUND')
+            print('\n🔗 SUGGESTION CHAIN ROUND')
             sys.stdout.flush()
             
             # Re-crawl random existing for more suggestions
@@ -555,7 +554,7 @@ class TurboScraper:
         self.existing = _get_existing_sync()
         self.seen = set(self.existing)
 
-        print(f'🚀 TURBO SCRAPER v3 — Search-First')
+        print('🚀 TURBO SCRAPER v3 — Search-First')
         print(f'   Target: {TARGET_COUNT}')
         print(f'   Workers: {NUM_WORKERS} scrapers + 1 discoverer')
         print(f'   DB: {_get_count_sync()} creators ({len(self.existing)} TikTok)')

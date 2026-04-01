@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Test TikTokApi library for getting user videos."""
-import asyncio, json, sys
+import asyncio
+import json
+import sys
 
 USERNAME = sys.argv[1] if len(sys.argv) > 1 else 'khaborinaldo'
 
@@ -24,7 +26,7 @@ async def main():
         print(f'User: {user_data}')
         
         # Get user videos
-        print(f'\nFetching videos...')
+        print('\nFetching videos...')
         videos = []
         async for video in user.videos(count=10):
             vid = video.as_dict
@@ -43,7 +45,7 @@ async def main():
         
         print(f'\nTotal videos: {len(videos)}')
         if videos:
-            print(f'\nFirst video full dump:')
+            print('\nFirst video full dump:')
             print(json.dumps(videos[0], indent=2, ensure_ascii=False))
 
 asyncio.run(main())

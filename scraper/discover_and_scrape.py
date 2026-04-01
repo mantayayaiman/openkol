@@ -5,7 +5,12 @@ scrapes real data, and inserts into Kreator DB.
 
 Usage: PLAYWRIGHT_BROWSERS_PATH=0 python3 scraper/discover_and_scrape.py [--batch N]
 """
-import asyncio, json, sqlite3, random, re, sys, os, time
+import asyncio
+import json
+import sqlite3
+import random
+import re
+import sys
 from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 
@@ -195,7 +200,7 @@ async def scrape_profile(page, username):
             return {'_suggested': list(set(suggested))} if suggested else None
         
         return None
-    except Exception as e:
+    except Exception:
         return None
 
 async def discover_suggested(page, username):
@@ -230,7 +235,7 @@ def load_discovered_handles():
 
 async def main():
     print('=' * 60)
-    print(f'OVERNIGHT DISCOVERY SCRAPER')
+    print('OVERNIGHT DISCOVERY SCRAPER')
     print(f'Started: {datetime.now(timezone.utc).isoformat()}')
     print(f'Max profiles per run: {MAX_PER_RUN}')
     print('=' * 60)
@@ -289,7 +294,7 @@ async def main():
         print(f'\nTotal discovered handles to scrape: {len(discovered_queue)}')
         
         # Phase 2: Scrape discovered profiles
-        print(f'\n--- Phase 2: Scraping discovered profiles ---')
+        print('\n--- Phase 2: Scraping discovered profiles ---')
         
         while discovered_queue and new_inserted < MAX_PER_RUN:
             username = discovered_queue.pop(0)
@@ -306,7 +311,7 @@ async def main():
                 await ctx.close()
                 ctx = await new_context()
                 profiles_in_context = 0
-                print(f'  [Rotated browser context]')
+                print('  [Rotated browser context]')
             
             page = await ctx.new_page()
             result = await scrape_profile(page, username)
@@ -363,7 +368,7 @@ async def main():
     # Final summary
     total_in_db = len(get_existing_usernames())
     print(f'\n{"=" * 60}')
-    print(f'SCRAPE COMPLETE')
+    print('SCRAPE COMPLETE')
     print(f'{"=" * 60}')
     print(f'New creators inserted: {new_inserted}')
     print(f'Skipped (too small): {skipped_small}')

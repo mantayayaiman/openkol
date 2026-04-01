@@ -5,7 +5,13 @@ Collects handles from multiple sources, verifies on TikTok, inserts into DB.
 
 Run: PLAYWRIGHT_BROWSERS_PATH=0 python3 scraper/overnight_v3.py 2>&1 | tee scraper/overnight.log
 """
-import asyncio, json, sqlite3, random, re, sys, os, time
+import asyncio
+import json
+import sqlite3
+import random
+import re
+import sys
+import time
 from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 
@@ -199,7 +205,7 @@ async def main():
         # ============================================================
         # PHASE 1: Collect handles from TikTok discover pages
         # ============================================================
-        print(f'\n--- PHASE 1: TikTok Discover Pages ---')
+        print('\n--- PHASE 1: TikTok Discover Pages ---')
         sys.stdout.flush()
         
         discover_queries = [
@@ -234,7 +240,7 @@ async def main():
         # ============================================================
         # PHASE 2: Collect from Modash
         # ============================================================
-        print(f'\n--- PHASE 2: Modash.io ---')
+        print('\n--- PHASE 2: Modash.io ---')
         sys.stdout.flush()
         
         modash_countries = ['malaysia', 'indonesia', 'singapore', 'thailand', 'philippines', 'vietnam']
@@ -251,7 +257,7 @@ async def main():
         # ============================================================
         # PHASE 3: Collect from seed profile suggestions
         # ============================================================
-        print(f'\n--- PHASE 3: Seed Profile Suggestions ---')
+        print('\n--- PHASE 3: Seed Profile Suggestions ---')
         sys.stdout.flush()
         
         seeds = list(existing)[:21]
@@ -287,7 +293,7 @@ async def main():
                 await ctx.close()
                 ctx = await fresh_ctx()
                 profiles_in_ctx = 0
-                print(f'  [Context rotated]')
+                print('  [Context rotated]')
             
             result = await scrape_tiktok_profile(ctx, username)
             
@@ -295,7 +301,7 @@ async def main():
                 failed += 1
                 empty_streak += 1
                 if empty_streak >= 3:
-                    print(f'  ⚠️ 3 empty in a row, pausing 60s...')
+                    print('  ⚠️ 3 empty in a row, pausing 60s...')
                     sys.stdout.flush()
                     await asyncio.sleep(60)
                     empty_streak = 0

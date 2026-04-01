@@ -2,7 +2,9 @@
 """
 Seed discovery queue with fresh handles from TikTok discover pages.
 """
-import asyncio, json, random, time
+import asyncio
+import json
+import random
 from playwright.async_api import async_playwright
 
 DISCOVER_PAGES = [

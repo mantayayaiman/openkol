@@ -13,7 +13,14 @@ Sources:
 
 Run: PLAYWRIGHT_BROWSERS_PATH=0 python3 -u scraper/turbo_yt.py 2>&1 | tee scraper/turbo_yt.log
 """
-import asyncio, httpx, json, sqlite3, random, re, sys, time
+import asyncio
+import httpx
+import json
+import sqlite3
+import random
+import re
+import sys
+import time
 from datetime import datetime, timezone
 from urllib.parse import quote
 from playwright.async_api import async_playwright
@@ -79,8 +86,11 @@ async def insert_yt(c):
                 cur = conn.execute('INSERT INTO creators (name,bio,profile_image,country,primary_platform,categories,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?)',
                     (c['name'],c.get('bio',''),c.get('avatar',''),country,'youtube',json.dumps(cats),now,now))
                 cid = cur.lastrowid
+            max(c.get('videos',0), 1)
+            # Estimate ER from available data (will be updated by video enricher later)
+            er = 0
             conn.execute('INSERT INTO platform_presences (creator_id,platform,username,url,followers,following,total_likes,total_videos,engagement_rate,last_scraped_at) VALUES (?,?,?,?,?,?,?,?,?,?)',
-                (cid,'youtube',c['username'],f'https://www.youtube.com/@{c["username"]}',c['subscribers'],0,0,c.get('videos',0),0,now))
+                (cid,'youtube',c['username'],f'https://www.youtube.com/@{c["username"]}',c['subscribers'],0,0,c.get('videos',0),er,now))
             conn.commit(); return True
         except: conn.rollback(); return False
         finally: conn.close()

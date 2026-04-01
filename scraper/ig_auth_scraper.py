@@ -3,7 +3,14 @@
 Authenticated IG scraper — uses burner account session to scrape remaining profiles.
 Combines: API endpoint (for profiles that need auth) + embed endpoint (for public profiles)
 """
-import asyncio, httpx, json, sqlite3, random, re, sys, time
+import asyncio
+import httpx
+import json
+import sqlite3
+import random
+import re
+import sys
+import time
 from datetime import datetime, timezone
 
 DB_PATH = '/Users/aiman/.openclaw/workspace/projects/kreator/kreator.db'
@@ -109,9 +116,9 @@ async def main():
         all_ig = json.load(f)
     remaining = [h for h in all_ig if h.lower() not in existing]
     
-    print(f'🚀 AUTHENTICATED IG SCRAPER')
+    print('🚀 AUTHENTICATED IG SCRAPER')
     print(f'   Remaining: {len(remaining)} handles')
-    print(f'   Method: API (auth) + embed (fallback)')
+    print('   Method: API (auth) + embed (fallback)')
     print(f'{"="*50}'); sys.stdout.flush()
     
     client_auth = httpx.Client(follow_redirects=True, timeout=15, cookies=COOKIES)

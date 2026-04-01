@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Generate morning summary of overnight scraping."""
-import sqlite3, json, os
-from datetime import datetime, timezone
+import sqlite3
+import json
+import os
 
 DB_PATH = '/Users/aiman/.openclaw/workspace/projects/kreator/kreator.db'
 HEALTH_LOG = '/Users/aiman/.openclaw/workspace/projects/kreator/scraper/health.jsonl'

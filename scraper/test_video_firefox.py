@@ -3,7 +3,11 @@
 Video scraping: Try Firefox + webkit with various stealth approaches.
 Also try: fetching individual video pages via httpx (bypass video list API).
 """
-import asyncio, json, sys, httpx, re
+import asyncio
+import json
+import sys
+import httpx
+import re
 
 USERNAME = sys.argv[1] if len(sys.argv) > 1 else 'khaborinaldo'
 
@@ -16,7 +20,7 @@ async def approach_httpx_video_pages(username):
     Step 2: Use oEmbed for each video to get metadata
     Step 3: Fetch individual video pages for full stats
     """
-    print(f'APPROACH: Individual video pages via httpx + oEmbed\n')
+    print('APPROACH: Individual video pages via httpx + oEmbed\n')
     
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
@@ -52,7 +56,7 @@ async def approach_httpx_video_pages(username):
                 data2 = json.loads(match2.group(1))
                 ud2 = data2.get('__DEFAULT_SCOPE__', {}).get('webapp.user-detail', {})
                 if 'userInfo' in ud2:
-                    print(f'  ✅ Got userInfo with Sec-Fetch headers!')
+                    print('  ✅ Got userInfo with Sec-Fetch headers!')
                     ud = ud2
                 else:
                     print(f'  Still no userInfo: {list(ud2.keys())}')
@@ -62,7 +66,7 @@ async def approach_httpx_video_pages(username):
         
         user = ud['userInfo']['user']
         stats = ud['userInfo']['stats']
-        sec_uid = user.get('secUid', '')
+        user.get('secUid', '')
         print(f'  ✅ User: {user.get("nickname")} (@{user.get("uniqueId")})')
         print(f'     Followers: {stats.get("followerCount"):,}')
         print(f'     Videos: {stats.get("videoCount")}')
@@ -108,7 +112,7 @@ async def approach_httpx_video_pages(username):
                 print(f'    Error for {vid_id}: {e}')
         
         # Step 4: For richer stats, fetch individual video pages
-        print(f'\n  Fetching video pages for stats...')
+        print('\n  Fetching video pages for stats...')
         for vid in videos[:5]:
             try:
                 r4 = await client.get(f'https://www.tiktok.com/@{username}/video/{vid["id"]}', timeout=15)

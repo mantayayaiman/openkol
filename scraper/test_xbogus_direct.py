@@ -126,7 +126,7 @@ async def main():
                     print(f"  statusCode: {result.get('statusCode')}")
                     print(f"  statusMsg: {result.get('statusMsg')}")
                     print(f"  Full: {json.dumps(result)[:500]}")
-            except Exception as e:
+            except Exception:
                 print(f"  Not JSON: {api_resp.text[:500]}")
         else:
             print("  Empty response!")

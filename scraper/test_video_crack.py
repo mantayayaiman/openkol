@@ -3,7 +3,11 @@
 THE CRACK: Mobile UA + httpx gets user data. 
 Now extend it to get video data via individual video page scraping.
 """
-import asyncio, json, sys, httpx, re, time
+import asyncio
+import json
+import sys
+import httpx
+import re
 
 USERNAME = sys.argv[1] if len(sys.argv) > 1 else 'khaborinaldo'
 
@@ -152,7 +156,7 @@ async def main():
             return
         
         # Step 3: Get video details
-        print(f'\n🔍 Fetching video details...')
+        print('\n🔍 Fetching video details...')
         videos = []
         
         for i, vid_id in enumerate(video_ids[:10]):
@@ -192,6 +196,6 @@ async def main():
         if videos:
             with open('scraper/video_crack_output.json', 'w') as f:
                 json.dump(videos, f, indent=2, ensure_ascii=False)
-            print(f'\n💾 Saved to scraper/video_crack_output.json')
+            print('\n💾 Saved to scraper/video_crack_output.json')
 
 asyncio.run(main())

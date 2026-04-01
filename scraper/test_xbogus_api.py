@@ -145,7 +145,7 @@ async def fetch_user_videos(sec_uid, cookies):
 
 async def approach_playwright_signed():
     """Use Playwright to execute TikTok's own signing JS, then make API calls."""
-    print(f"\n=== Approach: Use Playwright to sign via TikTok's own JS ===")
+    print("\n=== Approach: Use Playwright to sign via TikTok's own JS ===")
     
     from playwright.async_api import async_playwright
     
@@ -187,7 +187,7 @@ async def approach_playwright_signed():
             try:
                 result = await page.evaluate('''(url) => {
                     return window.byted_acrawler.frontierSign(url);
-                }''', f'/api/post/item_list/?secUid=test&count=30&cursor=0')
+                }''', '/api/post/item_list/?secUid=test&count=30&cursor=0')
                 print(f"  Signature result: {result}")
             except Exception as e:
                 print(f"  ❌ Signing failed: {e}")
@@ -207,13 +207,13 @@ async def main():
         print(f"  uid: {uid}")
         print(f"  Cookies: {list(cookies.keys())}")
     else:
-        print(f"  ❌ Couldn't get secUid (captcha?). Trying with known secUid...")
+        print("  ❌ Couldn't get secUid (captcha?). Trying with known secUid...")
         # We can still try if we have a secUid from our DB
     
     # Step 2: Try X-Bogus signed API call
     if sec_uid:
-        print(f"\n2. Fetching videos with X-Bogus signature...")
-        videos = await fetch_user_videos(sec_uid, cookies)
+        print("\n2. Fetching videos with X-Bogus signature...")
+        await fetch_user_videos(sec_uid, cookies)
     
     # Step 3: Try Playwright signing approach
     await approach_playwright_signed()

@@ -4,8 +4,12 @@ Parallel Smart Verifier — Runs multiple workers, each handling a slice of crea
 Usage: PLAYWRIGHT_BROWSERS_PATH=0 python3 -u scraper/smart_verifier_parallel.py <worker_id> <total_workers>
 Example: 4 workers → run with worker_id 0,1,2,3
 """
-import asyncio, json, sqlite3, random, re, sys, time
-from datetime import datetime, timezone
+import asyncio
+import json
+import sqlite3
+import random
+import re
+import sys
 from playwright.async_api import async_playwright
 
 DB_PATH = '/Users/aiman/.openclaw/workspace/projects/kreator/kreator.db'

@@ -3,7 +3,10 @@
 Scrape verified TikTok handles and rebuild the Kreator DB with REAL data only.
 Uses Playwright to extract hydration data from TikTok profile pages.
 """
-import asyncio, json, sqlite3, random, sys, os
+import asyncio
+import json
+import sqlite3
+import random
 from datetime import datetime
 from playwright.async_api import async_playwright
 
@@ -131,13 +134,12 @@ def rebuild_database(creators_data):
         engagement_rate = round((avg_likes_per_video / c['followers']) * 100, 2) if c['followers'] > 0 else 0
         engagement_rate = min(engagement_rate, 30.0)  # cap at 30%
         
-        cur2 = conn.execute('''INSERT INTO platform_presences 
+        conn.execute('''INSERT INTO platform_presences 
             (creator_id, platform, username, url, followers, following, 
              total_likes, total_videos, engagement_rate, last_scraped_at)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
             (creator_id, 'tiktok', c['username'], f'https://www.tiktok.com/@{c["username"]}',
              c['followers'], c['following'], c['likes'], c.get('videos', 0), engagement_rate, now))
-        presence_id = cur2.lastrowid
         
         # Generate audit score based on real signals
         following_ratio = c['following'] / c['followers'] if c['followers'] > 0 else 1
@@ -187,7 +189,7 @@ def rebuild_database(creators_data):
     presences = conn.execute('SELECT COUNT(*) FROM platform_presences').fetchone()[0]
     scores = conn.execute('SELECT COUNT(*) FROM audit_scores').fetchone()[0]
     
-    print(f'\n=== DATABASE REBUILT ===')
+    print('\n=== DATABASE REBUILT ===')
     print(f'Creators: {total}')
     print(f'Platform presences: {presences}')
     print(f'Audit scores: {scores}')
@@ -230,7 +232,7 @@ async def main():
                 else:
                     print(f'⏭️  Only {result["followers"]:,} followers (below {MIN_FOLLOWERS:,} threshold)')
             else:
-                print(f'❌ Failed to scrape')
+                print('❌ Failed to scrape')
             
             # Rate limit
             await asyncio.sleep(random.uniform(2, 4))

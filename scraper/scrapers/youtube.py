@@ -1,7 +1,6 @@
 """YouTube channel scraper using Playwright."""
 from __future__ import annotations
 import re
-import json
 
 from .base import BaseScraper
 from ..models import PlatformProfile, ContentItem

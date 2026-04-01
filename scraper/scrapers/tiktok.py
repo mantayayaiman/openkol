@@ -1,6 +1,5 @@
 """TikTok profile scraper using Playwright."""
 from __future__ import annotations
-import re
 import json
 
 from .base import BaseScraper

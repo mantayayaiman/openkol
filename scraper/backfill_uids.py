@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Backfill TikTok UIDs for existing creators. Scans from highest followers down."""
-import asyncio, json, sqlite3, random, re, sys, time
+import asyncio
+import json
+import sqlite3
+import random
+import sys
 from playwright.async_api import async_playwright
 
 DB = "/Users/aiman/.openclaw/workspace/projects/kreator/kreator.db"

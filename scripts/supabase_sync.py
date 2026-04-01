@@ -5,7 +5,6 @@ import sqlite3
 import json
 import urllib.request
 import urllib.error
-import sys
 import time
 
 SUPABASE_URL = "https://shrbrlmxhdehglczhgjh.supabase.co"

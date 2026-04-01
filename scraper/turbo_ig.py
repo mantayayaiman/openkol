@@ -6,7 +6,15 @@ No login, no Playwright, no anti-bot detection. Just needs 5-8s delay between re
 
 Run: python3 -u scraper/turbo_ig.py 2>&1 | tee scraper/turbo_ig.log
 """
-import asyncio, httpx, json, sqlite3, random, re, sys, time, os
+import asyncio
+import httpx
+import json
+import sqlite3
+import random
+import re
+import sys
+import time
+import os
 from datetime import datetime, timezone
 
 DB_PATH = '/Users/aiman/.openclaw/workspace/projects/kreator/kreator.db'
@@ -55,8 +63,10 @@ async def insert_ig(c):
                 cur = conn.execute('INSERT INTO creators (name,bio,profile_image,country,primary_platform,categories,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?)',
                     (c['name'],c.get('bio',''),'',country,'instagram',json.dumps(cats),now,now))
                 cid = cur.lastrowid
+            # ER will be populated by ig_video_enricher later
+            er = 0
             conn.execute('INSERT INTO platform_presences (creator_id,platform,username,url,followers,following,total_likes,total_videos,engagement_rate,last_scraped_at) VALUES (?,?,?,?,?,?,?,?,?,?)',
-                (cid,'instagram',c['username'],f'https://www.instagram.com/{c["username"]}/',c['followers'],0,0,c.get('posts',0),0,now))
+                (cid,'instagram',c['username'],f'https://www.instagram.com/{c["username"]}/',c['followers'],0,0,c.get('posts',0),er,now))
             conn.commit(); return True
         except: conn.rollback(); return False
         finally: conn.close()
@@ -114,7 +124,7 @@ async def main():
             seen.add(h_low); queue.append(h)
     random.shuffle(queue)
     
-    print(f'🚀 TURBO IG v3 — HTTP Embed Scraper')
+    print('🚀 TURBO IG v3 — HTTP Embed Scraper')
     print(f'   Queue: {len(queue)} handles')
     print(f'   Existing IG: {len(existing_ig)}')
     print(f'{"="*50}'); sys.stdout.flush()
